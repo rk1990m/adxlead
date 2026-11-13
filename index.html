@@ -3,621 +3,450 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Adxlead.com — Google Search Console & Paid Ads Growth OS</title>
-  
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            eng: {
-              50: '#F0FDF4',
-              100: '#E8F5EE',
-              200: '#D1EAE0',
-              300: '#A3D4C0',
-              400: '#52B792',
-              500: '#2E8B57', // Classic Sea Green
-              600: '#1D7344',
-              700: '#155C37',
-              800: '#10482B',
-              900: '#0B3821', // English Green (British Racing Green)
-              950: '#052315'
-            },
-            sea: {
-              50: '#F0FDFA',
-              100: '#CCFBF1',
-              400: '#2DD4BF',
-              500: '#14B8A6',
-              600: '#0D9488',
-              700: '#0F766E'
-            }
-          },
-          fontFamily: {
-            sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"Segoe UI"', 'Inter', 'Roboto', 'sans-serif'],
-            mono: ['"SF Mono"', 'Menlo', 'Monaco', 'Consolas', '"JetBrains Mono"', 'monospace']
-          }
-        }
-      }
-    }
-  </script>
-
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+  <title>Adxlead — AI for Marketing, Technical SEO & Protected Google Ads</title>
+  <meta name="description" content="Adxlead Growth OS: 16+ AI marketing & SEO templates, live technical SEO crawler, Google Indexing API v3 & IndexNow dispatcher, striking-distance quick wins, and 2× CPA stop-loss Google Ads automation.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/base.css">
   <style>
-    /* English Green & Sea Green Neumorphic + Glassmorphic Palette */
-    :root {
-      --bg-base: #F0F6F3;
-      --shadow-dark: #D1E2DA;
-      --shadow-light: #FFFFFF;
-      --english-green: #0B3821;
-      --english-green-deep: #052315;
-      --sea-green: #2E8B57;
-      --sea-teal: #0D9488;
-      --mint-glow: #34D399;
+    /* ---------- Marketing Site Layout (MarkAI Clean SaaS Style) ---------- */
+    .container { max-width: 1220px; margin: 0 auto; padding: 0 24px; }
+    .site-nav {
+      position: sticky; top: 0; z-index: 90; height: 72px;
+      background: rgba(246, 247, 249, .88); backdrop-filter: saturate(160%) blur(10px);
+      border-bottom: 1px solid var(--border); display: flex; align-items: center;
     }
+    .nav-inner { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .nav-links { display: flex; align-items: center; gap: 28px; font-weight: 500; color: var(--text-2); }
+    .nav-links a:hover { color: var(--text); }
+    .brand-link { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; letter-spacing: -0.02em; }
+    .brand-icon { width: 34px; height: 34px; border-radius: 10px; background: linear-gradient(180deg, var(--primary-2), var(--primary)); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; }
 
-    body {
-      background-color: var(--bg-base);
-      color: #052315;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", Inter, sans-serif;
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden;
+    /* Hero */
+    .hero { padding: 64px 0 40px; text-align: center; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 14px;
+      border-radius: 999px; background: var(--lavender); border: 1px solid var(--lavender-2);
+      color: var(--primary); font-size: 13px; font-weight: 600;
     }
+    .hero h1 {
+      font-size: clamp(34px, 5vw, 56px); line-height: 1.08; font-weight: 800;
+      letter-spacing: -0.035em; max-width: 860px; margin: 18px auto 16px;
+    }
+    .hero p.lead {
+      font-size: clamp(16px, 2vw, 19px); color: var(--text-2); max-width: 680px; margin: 0 auto 28px;
+    }
+    .hero-audit-box {
+      max-width: 660px; margin: 0 auto; padding: 8px; border-radius: 16px;
+      background: var(--surface); border: 1px solid var(--border-strong);
+      box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 10px;
+    }
+    .hero-audit-box .prefix { padding-left: 12px; color: var(--muted); font-family: ui-monospace, monospace; font-size: 14px; }
+    .hero-audit-box input {
+      flex: 1; border: 0; outline: none; height: 44px; font-size: 15px; background: transparent; min-width: 0;
+    }
+    .hero-meta { margin-top: 14px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
 
-    /* Ambient Seafoam Radial Mesh */
-    .sea-mesh {
-      background-image: 
-        radial-gradient(circle at 10% 15%, rgba(46, 139, 87, 0.08) 0%, transparent 45%),
-        radial-gradient(circle at 90% 85%, rgba(13, 148, 136, 0.08) 0%, transparent 45%),
-        radial-gradient(circle, rgba(16, 185, 129, 0.08) 1px, transparent 1px);
-      background-size: auto, auto, 32px 32px;
+    /* Browser Mockup Preview (MarkAI Live Frame) */
+    .browser-frame {
+      margin-top: 44px; border-radius: 22px; background: var(--surface);
+      border: 1px solid var(--border-strong); box-shadow: 0 24px 60px -16px rgba(15, 18, 34, .14);
+      overflow: hidden; text-align: left;
     }
+    .browser-bar {
+      height: 46px; padding: 0 18px; background: #F9FAFB; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .browser-dots { display: flex; gap: 7px; }
+    .browser-dots span { width: 11px; height: 11px; border-radius: 50%; }
+    .browser-url {
+      padding: 4px 18px; border-radius: 8px; background: #EEF0F4; color: var(--text-2);
+      font-size: 12.5px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .preview-shell { display: grid; grid-template-columns: 220px minmax(0, 1fr); background: var(--bg); }
+    .preview-side { background: var(--surface); border-right: 1px solid var(--border); padding: 18px 14px; display: flex; flex-direction: column; gap: 6px; }
+    .preview-nav-item { display: flex; align-items: center; gap: 10px; height: 36px; padding: 0 10px; border-radius: 9px; font-size: 13px; color: var(--text-2); font-weight: 500; }
+    .preview-nav-item.active { background: var(--lavender); color: var(--text); font-weight: 600; }
+    .preview-main { padding: 20px 24px; }
+    .preview-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
+    .preview-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 16px; }
+    .p-card {
+      padding: 16px; border-radius: 14px; border: 1px solid var(--border); background: var(--surface);
+      display: flex; flex-direction: column; gap: 6px; transition: transform .15s, box-shadow .15s;
+    }
+    .p-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .p-card.selected { background: var(--lavender); border-color: var(--primary); }
+    .p-card h4 { font-size: 14px; font-weight: 600; margin-top: 6px; }
+    .p-card p { font-size: 12.5px; color: var(--muted); line-height: 1.45; }
 
-    /* Neumorphic Soft Raised Card */
-    .neu-green-card {
-      background: var(--bg-base);
-      box-shadow: 8px 8px 18px var(--shadow-dark), -8px -8px 18px var(--shadow-light);
-      border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.85);
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .neu-green-card:hover {
-      box-shadow: 11px 11px 24px #C4DBD1, -11px -11px 24px #FFFFFF;
-      transform: translateY(-2px);
-    }
+    /* Sections */
+    .section { padding: 72px 0; }
+    .section-head { text-align: center; max-width: 680px; margin: 0 auto 44px; }
+    .section-head h2 { font-size: clamp(26px, 3.5vw, 38px); font-weight: 800; letter-spacing: -0.03em; margin-top: 10px; }
+    .section-head p { color: var(--text-2); font-size: 16px; margin-top: 10px; }
 
-    /* Neumorphic Inset / Pressed Surface */
-    .neu-green-inset {
-      background: var(--bg-base);
-      box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
-      border-radius: 14px;
-      border: 1px solid rgba(209, 226, 218, 0.4);
+    .bento-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+    .bento-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
+      padding: 26px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 10px;
     }
+    .bento-card h3 { font-size: 18px; font-weight: 700; }
+    .bento-card p { color: var(--text-2); font-size: 14px; line-height: 1.55; }
 
-    /* Neumorphic Clickable Green Button */
-    .neu-green-btn {
-      background: var(--bg-base);
-      box-shadow: 5px 5px 12px var(--shadow-dark), -5px -5px 12px var(--shadow-light);
-      border-radius: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.9);
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      color: var(--english-green);
+    /* Pricing */
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; align-items: stretch; }
+    .price-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
+      padding: 28px; display: flex; flex-direction: column; gap: 16px; box-shadow: var(--shadow-sm);
     }
-    .neu-green-btn:hover {
-      box-shadow: 7px 7px 16px #C4DBD1, -7px -7px 16px #FFFFFF;
-      color: var(--sea-teal);
+    .price-card.featured {
+      background: var(--lavender); border: 2px solid var(--primary);
+      box-shadow: var(--shadow-lg);
     }
+    .price-amt { font-size: 38px; font-weight: 800; letter-spacing: -0.03em; }
+    .price-amt small { font-size: 14px; font-weight: 500; color: var(--text-2); }
+    .feat-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; font-size: 13.5px; color: var(--text-2); }
+    .feat-list li { display: flex; align-items: center; gap: 8px; }
+    .feat-list li b { color: var(--green); }
 
-    /* High Authority CTA Button */
-    .btn-primary-cta {
-      background: linear-gradient(135deg, #0B3821 0%, #155C37 60%, #2E8B57 100%);
-      color: #FFFFFF !important;
-      box-shadow: 0 10px 24px -6px rgba(11, 56, 33, 0.4), 4px 4px 12px var(--shadow-dark);
-      border-radius: 14px;
-      transition: all 0.25s ease;
-    }
-    .btn-primary-cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 28px -6px rgba(11, 56, 33, 0.55), 6px 6px 16px var(--shadow-dark);
-    }
+    /* Footer */
+    .site-footer { border-top: 1px solid var(--border); background: var(--surface); padding: 40px 0; margin-top: 40px; }
 
-    /* Frosted Sea-Glass Panel */
-    .sea-glass {
-      background: rgba(255, 255, 255, 0.82);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.95);
-      box-shadow: 0 16px 36px -12px rgba(11, 56, 33, 0.12), 6px 6px 18px var(--shadow-dark);
-      border-radius: 22px;
+    @media (max-width: 980px) {
+      .preview-shell { grid-template-columns: 1fr; }
+      .preview-side { display: none; }
+      .preview-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .bento-grid, .pricing-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
     }
-
-    /* Gradient Typography */
-    .hero-title-main {
-      color: #052315 !important;
-      font-size: 2.75rem;
-      font-weight: 900;
-      line-height: 1.15;
-      letter-spacing: -0.03em;
+    @media (max-width: 560px) {
+      .preview-grid { grid-template-columns: 1fr; }
+      .hero-audit-box { flex-direction: column; align-items: stretch; }
+      .hero-audit-box .prefix { display: none; }
     }
-    @media (min-width: 768px) {
-      .hero-title-main { font-size: 3.75rem; }
-    }
-    .hero-title-gradient {
-      color: #0D9488 !important;
-      background: linear-gradient(135deg, #0B3821 0%, #0D9488 50%, #2E8B57 100%);
-      -webkit-background-clip: text !important;
-      -webkit-text-fill-color: transparent !important;
-      display: inline;
-    }
-    .hero-desc-text {
-      color: #155C37 !important;
-      font-size: 1.1rem;
-      line-height: 1.6;
-      font-weight: 500;
-    }
-
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-thumb { background: #B8D5C8; border-radius: 9999px; }
   </style>
 </head>
-<body class="min-h-screen flex flex-col sea-mesh">
+<body>
 
-  <!-- ==================================================================== -->
-  <!-- 1. OFFICIAL WEBSITE HEADER (NAVIGATION BAR)                          -->
-  <!-- ==================================================================== -->
-  <header class="sticky top-0 z-50 bg-[#F0F6F3]/95 backdrop-blur-xl border-b border-eng-200/80 px-6 py-4 transition shadow-sm">
-    <div class="max-w-[1450px] mx-auto flex items-center justify-between">
-      
-      <!-- Brand Logo & Identity -->
-      <a href="/" class="flex items-center gap-3 decoration-none">
-        <div class="w-10 h-10 neu-green-btn flex items-center justify-center text-eng-900 font-black text-lg tracking-tighter bg-gradient-to-br from-eng-100 to-eng-200 border-eng-300/60">
-          <span class="text-eng-900 font-black">Ad</span>
-        </div>
-        <div class="flex flex-col">
-          <div class="flex items-center gap-2">
-            <span class="text-xl font-black tracking-tight text-eng-950 font-sans">adxlead<span class="text-sea-600">.com</span></span>
-            <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-eng-100 text-eng-900 border border-eng-300">English Green OS</span>
-          </div>
-          <span class="text-[11px] text-eng-700 font-medium -mt-0.5">Google Search Console &amp; Paid Ads Growth Suite</span>
-        </div>
+  <!-- ================= NAVBAR ================= -->
+  <header class="site-nav">
+    <div class="container nav-inner">
+      <a href="/" class="brand-link">
+        <span class="brand-icon">Ax</span>
+        <span>Adxlead</span>
       </a>
 
-      <!-- Center Desktop Navigation Links -->
-      <nav class="hidden md:flex items-center gap-7 text-xs font-bold text-eng-800">
-        <a href="#features" class="hover:text-sea-600 transition">Features</a>
-        <a href="#indexing" class="hover:text-sea-600 transition flex items-center gap-1">
-          <i class="fa-solid fa-bolt text-sea-500 text-[10px]"></i> Fast Indexing (&lt;2h)
-        </a>
-        <a href="#quickwins" class="hover:text-sea-600 transition flex items-center gap-1">
-          <i class="fa-solid fa-chart-line text-sea-500 text-[10px]"></i> GSC Radar
-        </a>
-        <a href="#calculator" class="hover:text-sea-600 transition">QS Halver</a>
-        <a href="#pricing" class="hover:text-sea-600 transition">Pricing</a>
+      <nav class="nav-links">
+        <a href="#templates">Templates</a>
+        <a href="#features">Growth Engines</a>
+        <a href="#pricing">Pricing</a>
+        <a href="/app?view=templates">Live Workspace</a>
       </nav>
 
-      <!-- Right Action CTA Buttons -->
-      <div class="flex items-center gap-3">
-        <a href="/app" class="hidden sm:inline-flex px-4 py-2 neu-green-btn text-xs font-bold text-eng-900 items-center gap-1.5 cursor-pointer">
-          <i class="fa-solid fa-arrow-right-to-bracket text-sea-600"></i>
-          <span>Sign In</span>
-        </a>
-        
-        <a href="/app" class="btn-primary-cta px-5 py-2.5 text-xs font-black flex items-center gap-2 cursor-pointer">
-          <span>Launch App Free</span>
-          <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-        </a>
+      <div class="row gap-10">
+        <a class="btn btn-ghost" href="/app?view=templates">Browse Templates</a>
+        <a class="btn btn-primary" href="/app">Open Workspace →</a>
       </div>
-
     </div>
   </header>
 
-  <!-- ==================================================================== -->
-  <!-- 2. HERO SECTION: HIGH-CONVERTING SAAS VALUE PROPOSITION              -->
-  <!-- ==================================================================== -->
-  <section class="relative pt-12 pb-16 px-6 max-w-[1450px] mx-auto w-full text-center space-y-6">
-    
-    <!-- Top Announcement Pill -->
-    <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full neu-green-card text-xs font-bold text-eng-900 border border-eng-300/80">
-      <span class="w-2 h-2 rounded-full bg-sea-500 animate-pulse"></span>
-      <span class="text-eng-800">New Release:</span>
-      <span class="text-sea-700">Googlebot Instant Indexing API v3 &amp; QS CPC Halver</span>
-      <i class="fa-solid fa-arrow-right text-[10px] text-sea-600"></i>
-    </div>
-
-    <!-- Main H1 Headline -->
-    <h1 class="hero-title-main max-w-4xl mx-auto">
-      Turn Search Console Clicks into <br>
-      <span class="hero-title-gradient">High-ROAS Revenue</span>.
-    </h1>
-
-    <!-- Sub-headline -->
-    <p class="hero-desc-text max-w-2xl mx-auto">
-      The autonomous growth OS that uncovers Page 2 striking-distance queries, forces Googlebot to index new landing pages in &lt;2 hours, and cuts Google Ads CPCs by up to 50% using verified Quality Score math.
-    </p>
-
-    <!-- Call to Actions -->
-    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-      <a href="/app" class="btn-primary-cta px-8 py-4 text-sm font-black flex items-center gap-3 text-white cursor-pointer shadow-lg">
-        <i class="fa-brands fa-google text-sea-300 text-base"></i>
-        <span>Connect Search Console (Free)</span>
-      </a>
-
-      <a href="#calculator" class="neu-green-btn px-6 py-4 text-sm font-bold text-eng-900 flex items-center gap-2.5 cursor-pointer">
-        <i class="fa-solid fa-calculator text-sea-600"></i>
-        <span>Simulate CPC Discount</span>
-      </a>
-    </div>
-
-    <!-- Trust Badges & Metrics Strip -->
-    <div class="pt-8 flex flex-wrap items-center justify-center gap-8 text-xs text-eng-700 font-bold">
-      <div class="flex items-center gap-2">
-        <i class="fa-solid fa-shield-halved text-sea-600 text-sm"></i>
-        <span>Bank-Grade Google OAuth 2.0</span>
-      </div>
-      <div class="flex items-center gap-2">
-        <i class="fa-solid fa-bolt text-teal-600 text-sm"></i>
-        <span>&lt;2-Hour Googlebot Queue</span>
-      </div>
-      <div class="flex items-center gap-2">
-        <i class="fa-solid fa-coins text-amber-500 text-sm"></i>
-        <span>₹561k/mo Average Bleed Killed</span>
-      </div>
-      <div class="flex items-center gap-2">
-        <i class="fa-solid fa-clock text-eng-700 text-sm"></i>
-        <span>60-Second Setup • No Code</span>
-      </div>
-    </div>
-
-  </section>
-
-  <!-- ==================================================================== -->
-  <!-- 3. LIVE INTERACTIVE QUALITY SCORE & CPC CALCULATOR (LEAD MAGNET)     -->
-  <!-- ==================================================================== -->
-  <section id="calculator" class="max-w-[1300px] mx-auto w-full px-6 py-8">
-    <div class="sea-glass p-8 sm:p-10 space-y-6 border-eng-200">
-      
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-eng-200/80 pb-5">
-        <div>
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full neu-green-inset text-xs font-bold text-eng-800 mb-2">
-            <i class="fa-solid fa-calculator text-sea-600"></i> Interactive Math Model
-          </div>
-          <h2 class="text-2xl font-black text-eng-950 tracking-tight">
-            How Much Google Ads Budget Are You Overpaying?
-          </h2>
-          <p class="text-xs text-eng-700 mt-1">
-            Google calculates actual CPC = Ad Rank / Quality Score. Drag the slider below to see how QS 8+ halves your cost per click.
-          </p>
-        </div>
-
-        <div class="neu-green-btn px-4 py-2 text-center">
-          <div class="text-[10px] uppercase font-bold text-eng-700">Simulated QS</div>
-          <div id="hero-qs-val" class="text-xl font-black text-sea-700 font-mono">8 / 10</div>
-        </div>
-      </div>
-
-      <!-- Slider & Real-Time Math Cards -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
-        
-        <div class="neu-green-card p-6 space-y-3">
-          <label class="text-xs font-bold text-eng-900 uppercase tracking-wider block">Quality Score Slider:</label>
-          <input type="range" id="home-qs-range" min="1" max="10" value="8" step="1" oninput="calcHomeQs(this.value)" class="w-full accent-sea-600 cursor-pointer">
-          <div class="flex justify-between text-[11px] font-mono text-eng-700 font-bold">
-            <span class="text-red-500">1 (Penalty)</span>
-            <span class="text-eng-700">5 (Baseline)</span>
-            <span class="text-sea-600">10 (-50% CPC)</span>
-          </div>
-          <p class="text-[11px] text-eng-700 pt-2 border-t border-eng-200/60 leading-relaxed">
-            Formula: <code class="text-sea-700 font-bold font-mono">Effective CPC = Market CPC × (5 / QS)</code>
-          </p>
-        </div>
-
-        <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center sm:text-left">
-          <div class="neu-green-inset p-5 space-y-1">
-            <div class="text-[10px] uppercase font-bold text-eng-700">Unadjusted CPC</div>
-            <div class="text-2xl font-black text-eng-950 font-mono">₹285.00</div>
-            <div class="text-[10px] text-eng-700">Standard Auction Price</div>
-          </div>
-
-          <div class="neu-green-inset p-5 space-y-1">
-            <div class="text-[10px] uppercase font-bold text-eng-700">Effective CPC Paid</div>
-            <div id="home-calc-cpc" class="text-2xl font-black text-sea-700 font-mono">₹178.13</div>
-            <div id="home-calc-pct" class="text-[10px] font-bold text-sea-600">-37.5% Google Discount</div>
-          </div>
-
-          <div class="neu-green-inset p-5 space-y-1">
-            <div class="text-[10px] uppercase font-bold text-eng-700">Savings / 500 Clicks</div>
-            <div id="home-calc-savings" class="text-2xl font-black text-sea-600 font-mono">+₹53,437</div>
-            <div class="text-[10px] text-sea-700 font-bold">Pure profit retained</div>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==================================================================== -->
-  <!-- 4. CORE PLATFORM PILLARS (THE 4 ENGINES)                             -->
-  <!-- ==================================================================== -->
-  <section id="features" class="max-w-[1450px] mx-auto w-full px-6 py-12 space-y-10">
-    <div class="text-center space-y-2 max-w-2xl mx-auto">
-      <span class="text-xs font-bold uppercase tracking-wider text-sea-700">Unified Architecture</span>
-      <h2 class="text-3xl font-black text-eng-950 tracking-tight">4 Engines. One Autonomous Growth OS.</h2>
-      <p class="text-xs sm:text-sm text-eng-700 leading-relaxed">
-        Stop managing SEO and Google Ads in fragmented silos. Adxlead synchronizes organic crawl speed with high-ROAS paid search precision.
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="container">
+      <span class="hero-badge">✨ Adxlead Growth OS v3.0 — AI for Marketing, SEO &amp; Google Ads</span>
+      <h1>One clean workspace for Technical SEO, Instant Indexing &amp; Protected Google Ads.</h1>
+      <p class="lead">
+        Audit any domain in real time, push unindexed URLs to Google Indexing API v3 &amp; IndexNow, rewrite Page-2 titles with AI templates, and guard your ad budget with a 2× CPA stop-loss.
       </p>
-    </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      
-      <!-- Engine 1 -->
-      <div id="indexing" class="neu-green-card p-6 space-y-3 flex flex-col justify-between">
-        <div class="space-y-3">
-          <div class="w-12 h-12 rounded-2xl neu-green-inset flex items-center justify-center text-sea-600 text-lg">
-            <i class="fa-solid fa-bolt"></i>
-          </div>
-          <h3 class="text-base font-extrabold text-eng-950">Fast Googlebot Indexing</h3>
-          <p class="text-xs text-eng-700 leading-relaxed">
-            Bypasses traditional 7–14 day crawler queues. Pings Google Indexing API v3 and Bing IndexNow simultaneously for sub-2-hour crawl confirmation.
-          </p>
-        </div>
-        <div class="pt-3 border-t border-eng-200/60 text-xs font-bold text-sea-700 flex items-center justify-between">
-          <span>&lt;2 to 4h Queue</span>
-          <i class="fa-solid fa-arrow-right text-[10px]"></i>
-        </div>
+      <form class="hero-audit-box" id="hero-audit-form">
+        <span class="prefix">https://</span>
+        <input id="hero-domain-input" type="text" placeholder="Enter any website domain (e.g. yourcompany.com)…" autocomplete="off">
+        <button class="btn btn-primary btn-lg" type="submit">Run Free Audit →</button>
+      </form>
+
+      <div class="hero-meta">
+        <span>✔ 100% On-Demand (Zero Background Pings)</span>
+        <span>✔ 16+ MarkAI Marketing &amp; SEO Templates</span>
+        <span>✔ Google Indexing API v3 + Bing IndexNow</span>
+        <span>✔ 2× Target CPA Auto-Kill Guardrail</span>
       </div>
 
-      <!-- Engine 2 -->
-      <div id="quickwins" class="neu-green-card p-6 space-y-3 flex flex-col justify-between">
-        <div class="space-y-3">
-          <div class="w-12 h-12 rounded-2xl neu-green-inset flex items-center justify-center text-sea-600 text-lg">
-            <i class="fa-solid fa-crosshairs"></i>
+      <!-- ================= MARKAI INTERACTIVE PREVIEW FRAME ================= -->
+      <div class="browser-frame" id="templates">
+        <div class="browser-bar">
+          <div class="browser-dots">
+            <span style="background:#EF4444"></span>
+            <span style="background:#F59E0B"></span>
+            <span style="background:#22C55E"></span>
           </div>
-          <h3 class="text-base font-extrabold text-eng-950">Striking Distance Radar</h3>
-          <p class="text-xs text-eng-700 leading-relaxed">
-            Pinpoints keywords ranking in Positions 4–15 with high impressions. Generates AI Click-Magnet title tags to push them into Top 3 SERP slots.
-          </p>
+          <div class="browser-url">🔒 Adxlead Workspace — Templates &amp; Growth Engines</div>
+          <a class="btn btn-sm btn-primary" href="/app">Launch Full Screen ↗</a>
         </div>
-        <div class="pt-3 border-t border-eng-200/60 text-xs font-bold text-sea-700 flex items-center justify-between">
-          <span>3x–5x CTR Lift</span>
-          <i class="fa-solid fa-arrow-right text-[10px]"></i>
-        </div>
-      </div>
 
-      <!-- Engine 3 -->
-      <div class="neu-green-card p-6 space-y-3 flex flex-col justify-between">
-        <div class="space-y-3">
-          <div class="w-12 h-12 rounded-2xl neu-green-inset flex items-center justify-center text-sea-600 text-lg">
-            <i class="fa-solid fa-calculator"></i>
-          </div>
-          <h3 class="text-base font-extrabold text-eng-950">Quality Score CPC Halver</h3>
-          <p class="text-xs text-eng-700 leading-relaxed">
-            Eliminates high auction bids by optimizing 3 Google core signals: Expected CTR, verbatim Ad Relevance, and sub-2.5s Landing Page Message Match.
-          </p>
-        </div>
-        <div class="pt-3 border-t border-eng-200/60 text-xs font-bold text-sea-700 flex items-center justify-between">
-          <span>Up to -50% CPC</span>
-          <i class="fa-solid fa-arrow-right text-[10px]"></i>
-        </div>
-      </div>
+        <div class="preview-shell">
+          <aside class="preview-side">
+            <a class="btn btn-primary btn-block" href="/app?view=home" style="margin-bottom:8px">New Audit</a>
+            <a class="preview-nav-item" href="/app?view=home">🏠 Home</a>
+            <a class="preview-nav-item active" href="/app?view=templates">📄 Templates</a>
+            <a class="preview-nav-item" href="/app?view=tech-seo">🔍 Technical SEO</a>
+            <a class="preview-nav-item" href="/app?view=quick-wins">⚡ Striking Distance</a>
+            <a class="preview-nav-item" href="/app?view=rank-tracker">📈 Rank Tracker</a>
+            <a class="preview-nav-item" href="/app?view=campaigns">🚀 Campaigns</a>
+            <a class="preview-nav-item" href="/app?view=off-page">🔗 Off-Page &amp; PR</a>
+            <div style="height:1px;background:var(--border);margin:8px 4px"></div>
+            <a class="preview-nav-item" href="/app?view=templates"><span class="dot" style="background:#F59E0B"></span> Favorite Tools <span class="chip" style="margin-left:auto;height:20px;font-size:11px">10</span></a>
+            <a class="preview-nav-item" href="/app?view=templates"><span class="dot" style="background:#5B5BD6"></span> Popular Tools <span class="chip" style="margin-left:auto;height:20px;font-size:11px">10</span></a>
+            <a class="preview-nav-item" href="/app?view=templates"><span class="dot" style="background:#16A34A"></span> Recent Tools <span class="chip" style="margin-left:auto;height:20px;font-size:11px">10</span></a>
+          </aside>
 
-      <!-- Engine 4 -->
-      <div class="neu-green-card p-6 space-y-3 flex flex-col justify-between">
-        <div class="space-y-3">
-          <div class="w-12 h-12 rounded-2xl neu-green-inset flex items-center justify-center text-red-500 text-lg">
-            <i class="fa-solid fa-shield-halved"></i>
-          </div>
-          <h3 class="text-base font-extrabold text-eng-950">50-Keyword Spend Shield</h3>
-          <p class="text-xs text-eng-700 leading-relaxed">
-            Auto-quarantines zero-intent bleed queries (`free`, `salary`, `cracks`, `jobs`, `internship`). Stops budget loss before a single click is wasted.
-          </p>
-        </div>
-        <div class="pt-3 border-t border-eng-200/60 text-xs font-bold text-sea-700 flex items-center justify-between">
-          <span>₹561k/mo Saved</span>
-          <i class="fa-solid fa-arrow-right text-[10px]"></i>
-        </div>
-      </div>
+          <div class="preview-main">
+            <div class="preview-panel">
+              <div class="between" style="margin-bottom:10px">
+                <h3 style="font-size:20px">Templates</h3>
+                <a class="btn btn-sm" href="/app?view=templates">View All 16 Templates →</a>
+              </div>
 
-    </div>
-  </section>
+              <div class="tabs">
+                <span class="tab active">All</span>
+                <span class="tab">SEO</span>
+                <span class="tab">Advertising</span>
+                <span class="tab">Indexing</span>
+                <span class="tab">Social Media</span>
+                <span class="tab">Blog</span>
+                <span class="tab">Email Marketing</span>
+                <span class="tab">Product Marketing</span>
+              </div>
 
-  <!-- ==================================================================== -->
-  <!-- 5. TRANSPARENT SAAS PRICING TABLE                                    -->
-  <!-- ==================================================================== -->
-  <section id="pricing" class="max-w-[1300px] mx-auto w-full px-6 py-12 space-y-10">
-    <div class="text-center space-y-2 max-w-xl mx-auto">
-      <span class="text-xs font-bold uppercase tracking-wider text-sea-700">Simple SaaS Pricing</span>
-      <h2 class="text-3xl font-black text-eng-950 tracking-tight">Fair Pricing. Infinite ROAS.</h2>
-      <p class="text-xs text-eng-700">Start free for 7 days. Cancel anytime with 1 click.</p>
-    </div>
+              <div class="preview-grid">
+                <a class="p-card selected" href="/app?view=templates">
+                  <div class="emoji-tile">📸</div>
+                  <h4>AI Click-Magnet SERP Title</h4>
+                  <p>Catchy, high-CTR title tags and meta descriptions to boost organic clicks.</p>
+                  <div class="row gap-8 mt-8">
+                    <span class="chip">SEO</span>
+                    <span class="tag-text green">Pro Subs</span>
+                  </div>
+                </a>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      
-      <!-- Tier 1: Starter -->
-      <div class="neu-green-card p-7 space-y-5 flex flex-col justify-between">
-        <div class="space-y-4">
-          <div class="text-xs font-bold text-eng-700 uppercase">Starter</div>
-          <div class="flex items-baseline gap-1">
-            <span class="text-4xl font-black text-eng-950 font-mono">$0</span>
-            <span class="text-xs text-eng-700">/ forever</span>
-          </div>
-          <p class="text-xs text-eng-700">For early founders verifying Search Console indexing &amp; URL health.</p>
-          <ul class="space-y-2 text-xs text-eng-800">
-            <li><i class="fa-solid fa-check text-sea-600 mr-2"></i> 20 Fast Indexing URLs / day</li>
-            <li><i class="fa-solid fa-check text-sea-600 mr-2"></i> 1 Domain GSC Audit</li>
-            <li><i class="fa-solid fa-check text-sea-600 mr-2"></i> Real-time URL Inspection</li>
-            <li><i class="fa-solid fa-check text-sea-600 mr-2"></i> Community Support</li>
-          </ul>
-        </div>
-        <a href="/app" class="neu-green-btn w-full py-2.5 text-xs font-bold text-center block cursor-pointer">
-          Get Started Free
-        </a>
-      </div>
+                <a class="p-card" href="/app?view=campaigns">
+                  <div class="emoji-tile">🎯</div>
+                  <h4>Google Ads RSA Copy</h4>
+                  <p>High-converting Responsive Search Ad text to grab attention and drive clicks.</p>
+                  <div class="row gap-8 mt-8">
+                    <span class="chip">Advertising</span>
+                    <span class="tag-text green">Pro Subs</span>
+                  </div>
+                </a>
 
-      <!-- Tier 2: Pro Growth (Featured) -->
-      <div class="sea-glass p-7 space-y-5 flex flex-col justify-between border-2 border-sea-500 shadow-xl relative">
-        <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-sea-600 text-white text-[10px] font-black uppercase tracking-wider shadow">
-          Most Popular
-        </div>
-        <div class="space-y-4 pt-1">
-          <div class="text-xs font-bold text-sea-700 uppercase">Pro Growth</div>
-          <div class="flex items-baseline gap-1">
-            <span class="text-4xl font-black text-eng-950 font-mono">$49</span>
-            <span class="text-xs text-eng-700">/ month</span>
-          </div>
-          <p class="text-xs text-eng-700">For high-growth SaaS and e-commerce scaling paid search &amp; organic rank.</p>
-          <ul class="space-y-2 text-xs text-eng-800">
-            <li><i class="fa-solid fa-check text-sea-600 mr-2"></i> 200 Fast Indexing URLs / day</li>
-            <li><i class="fa-solid fa-check text-sea-600 mr-2"></i> 5 Domains GSC &amp; Ads Connected</li>
-            <li><i class="fa-solid fa-check text-sea-600 mr-2"></i> Automated Striking Distance Radar</li>
-            <li><i class="fa-solid fa-check text-sea-600 mr-2"></i> 50-Keyword Negative Spend Shield</li>
-            <li><i class="fa-solid fa-check text-sea-600 mr-2"></i> Priority Googlebot Queue</li>
-          </ul>
-        </div>
-        <a href="/app" class="btn-primary-cta w-full py-3 text-xs font-black text-center block cursor-pointer">
-          Start 7-Day Free Trial
-        </a>
-      </div>
+                <a class="p-card" href="/app?view=tech-seo">
+                  <div class="emoji-tile">⚡</div>
+                  <h4>Instant URL Indexer</h4>
+                  <p>Push unindexed sitemap pages directly to Google Indexing API v3 &amp; IndexNow.</p>
+                  <div class="row gap-8 mt-8">
+                    <span class="chip">Indexing</span>
+                    <span class="tag-text green">Pro Subs</span>
+                  </div>
+                </a>
 
-      <!-- Tier 3: Agency Scale -->
-      <div class="neu-green-card p-7 space-y-5 flex flex-col justify-between">
-        <div class="space-y-4">
-          <div class="text-xs font-bold text-eng-700 uppercase">Agency Scale</div>
-          <div class="flex items-baseline gap-1">
-            <span class="text-4xl font-black text-eng-950 font-mono">$149</span>
-            <span class="text-xs text-eng-700">/ month</span>
-          </div>
-          <p class="text-xs text-eng-700">For marketing agencies managing multiple client GSC &amp; Google Ads portfolios.</p>
-          <ul class="space-y-2 text-xs text-eng-800">
-            <li><i class="fa-solid fa-check text-sea-600 mr-2"></i> Unlimited URLs &amp; Domains</li>
-            <li><i class="fa-solid fa-check text-sea-600 mr-2"></i> Multi-Client Tenant Switcher</li>
-            <li><i class="fa-solid fa-check text-sea-600 mr-2"></i> White-Label Client Reports (PDF/CSV)</li>
-            <li><i class="fa-solid fa-check text-sea-600 mr-2"></i> Automated 24/7 Stop-Loss Webhooks</li>
-            <li><i class="fa-solid fa-check text-sea-600 mr-2"></i> Dedicated Growth Architect Support</li>
-          </ul>
-        </div>
-        <a href="/app" class="neu-green-btn w-full py-2.5 text-xs font-bold text-center block cursor-pointer">
-          Contact Agency Sales
-        </a>
-      </div>
+                <a class="p-card" href="/app?view=templates">
+                  <div class="emoji-tile">🔍</div>
+                  <h4>SEO-Optimized Blog Post</h4>
+                  <p>AI-powered long-form blog posts designed for top search rankings.</p>
+                  <div class="row gap-8 mt-8">
+                    <span class="chip">SEO</span>
+                    <span class="tag-text amber">Beta</span>
+                  </div>
+                </a>
 
-    </div>
-  </section>
+                <a class="p-card" href="/app?view=quick-wins">
+                  <div class="emoji-tile">🚀</div>
+                  <h4>Striking Distance Miner</h4>
+                  <p>Find keywords ranking Position 4–20 and deploy 4-part CTR diagnostics.</p>
+                  <div class="row gap-8 mt-8">
+                    <span class="chip">SEO</span>
+                    <span class="tag-text green">Pro Subs</span>
+                  </div>
+                </a>
 
-  <!-- ==================================================================== -->
-  <!-- 6. OFFICIAL WEBSITE FOOTER                                           -->
-  <!-- ==================================================================== -->
-  <footer class="bg-[#E5EFE9] border-t border-eng-200/80 pt-16 pb-12 px-6 mt-16 text-eng-900">
-    <div class="max-w-[1450px] mx-auto space-y-12">
-      
-      <!-- Top Grid: 5 Columns -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-        
-        <!-- Column 1: Brand & Mission -->
-        <div class="lg:col-span-2 space-y-3">
-          <div class="flex items-center gap-2.5">
-            <div class="w-8 h-8 neu-green-btn flex items-center justify-center text-eng-950 font-black text-sm bg-eng-100">
-              Ad
+                <a class="p-card" href="/app?view=campaigns">
+                  <div class="emoji-tile">🛡️</div>
+                  <h4>Negative Keyword Shield</h4>
+                  <p>Block junk search intent (free, jobs, cracks, login) before launching ads.</p>
+                  <div class="row gap-8 mt-8">
+                    <span class="chip">Advertising</span>
+                    <span class="tag-text green">Pro Subs</span>
+                  </div>
+                </a>
+
+                <a class="p-card" href="/app?view=off-page">
+                  <div class="emoji-tile">🧩</div>
+                  <h4>Entity JSON-LD Schema</h4>
+                  <p>Generate Organization, FAQPage, and sameAs Knowledge Graph markup.</p>
+                  <div class="row gap-8 mt-8">
+                    <span class="chip">SEO</span>
+                  </div>
+                </a>
+
+                <a class="p-card" href="/app?view=report">
+                  <div class="emoji-tile">📊</div>
+                  <h4>White-Label Client Report</h4>
+                  <p>Export executive A4 PDF audits for clients and agency stakeholders.</p>
+                  <div class="row gap-8 mt-8">
+                    <span class="chip">Product Marketing</span>
+                    <span class="tag-text green">Pro Subs</span>
+                  </div>
+                </a>
+              </div>
             </div>
-            <span class="text-lg font-black tracking-tight text-eng-950">adxlead<span class="text-sea-600">.com</span></span>
-          </div>
-          <p class="text-xs text-eng-700 leading-relaxed max-w-sm">
-            Autonomous Google Search Console &amp; Paid Ads Growth Intelligence OS. Bridging technical SEO crawl velocity with high-ROAS search advertising performance.
-          </p>
-          <div class="flex items-center gap-2 text-xs text-sea-700 font-bold pt-1">
-            <span class="w-2 h-2 rounded-full bg-sea-500 animate-ping"></span>
-            <span>All Systems Operational (AWS EC2 99.98% Uptime)</span>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <!-- Column 2: Products & Engines -->
-        <div class="space-y-3">
-          <h4 class="text-xs font-black uppercase tracking-wider text-eng-950">Products</h4>
-          <ul class="space-y-2 text-xs text-eng-700">
-            <li><a href="/app" class="hover:text-sea-600 transition">Instant Indexing API v3</a></li>
-            <li><a href="/app" class="hover:text-sea-600 transition">Striking Distance Radar</a></li>
-            <li><a href="/app" class="hover:text-sea-600 transition">QS CPC Halver Engine</a></li>
-            <li><a href="/app" class="hover:text-sea-600 transition">50-Keyword Spend Shield</a></li>
-            <li><a href="/app" class="hover:text-sea-600 transition">GSC URL Inspector</a></li>
-          </ul>
-        </div>
-
-        <!-- Column 3: Solutions -->
-        <div class="space-y-3">
-          <h4 class="text-xs font-black uppercase tracking-wider text-eng-950">Solutions</h4>
-          <ul class="space-y-2 text-xs text-eng-700">
-            <li><a href="/app" class="hover:text-sea-600 transition">For SaaS Founders</a></li>
-            <li><a href="/app" class="hover:text-sea-600 transition">For Performance Agencies</a></li>
-            <li><a href="/app" class="hover:text-sea-600 transition">For E-Commerce Brands</a></li>
-            <li><a href="/app" class="hover:text-sea-600 transition">For Staff Augmentation</a></li>
-            <li><a href="/app" class="hover:text-sea-600 transition">White-Label Growth</a></li>
-          </ul>
-        </div>
-
-        <!-- Column 4: Legal & Security -->
-        <div class="space-y-3">
-          <h4 class="text-xs font-black uppercase tracking-wider text-eng-950">Compliance</h4>
-          <ul class="space-y-2 text-xs text-eng-700">
-            <li><a href="#" class="hover:text-sea-600 transition">Privacy Policy</a></li>
-            <li><a href="#" class="hover:text-sea-600 transition">Terms of Service</a></li>
-            <li><a href="#" class="hover:text-sea-600 transition">Google API Disclosure</a></li>
-            <li><a href="#" class="hover:text-sea-600 transition">GDPR / DPA Compliance</a></li>
-            <li><a href="#" class="hover:text-sea-600 transition">Security Fortress</a></li>
-          </ul>
-        </div>
-
+  <!-- ================= 6 CORE GROWTH ENGINES ================= -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-head">
+        <span class="chip chip-violet">UNIFIED GROWTH OPERATING SYSTEM</span>
+        <h2>Everything you need to rank, index, and convert</h2>
+        <p>Built for founders, in-house growth teams, and performance agencies who want real telemetry instead of bloated dashboards.</p>
       </div>
 
-      <!-- Bottom Bar: Copyright & Compliance -->
-      <div class="pt-8 border-t border-eng-300/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-eng-700">
-        <div>
-          &copy; 2026 <strong>adxlead.com</strong>. All rights reserved. Built with English Green &amp; Sea Green Growth Architecture.
+      <div class="bento-grid">
+        <div class="bento-card">
+          <div class="emoji-tile">🔍</div>
+          <h3>1. Live Technical SEO Crawler</h3>
+          <p>Fetches live HTML, discovers XML sitemaps, measures TTFB latency, verifies canonical tags &amp; mobile viewport, and computes a 0–100 Health Score.</p>
+          <a class="btn btn-sm mt-8" href="/app?view=tech-seo" style="align-self:flex-start">Open Technical SEO →</a>
         </div>
-        <div class="flex items-center gap-4 text-[11px]">
-          <span>Google Search Console API Verified</span>
-          <span>•</span>
-          <span>Bing IndexNow Partner</span>
-          <span>•</span>
-          <span>AWS EC2 Ubuntu 24.04</span>
+
+        <div class="bento-card">
+          <div class="emoji-tile">⚡</div>
+          <h3>2. Instant Indexing API v3 + IndexNow</h3>
+          <p>Automatically separates Unindexed vs Indexed URLs and dispatches batches of 15 URLs to Google Indexing API v3 and Bing/Yandex IndexNow.</p>
+          <a class="btn btn-sm mt-8" href="/app?view=tech-seo" style="align-self:flex-start">Open Index Dispatcher →</a>
+        </div>
+
+        <div class="bento-card">
+          <div class="emoji-tile">🚀</div>
+          <h3>3. Striking-Distance CTR Engine</h3>
+          <p>Isolates keywords stuck at Position 4–20 with a real-time Google SERP Preview Card, 4-part diagnostic (Defect, Cause, Bleed, Fix), and 1-click Title copy.</p>
+          <a class="btn btn-sm mt-8" href="/app?view=quick-wins" style="align-self:flex-start">Open Quick Wins →</a>
+        </div>
+
+        <div class="bento-card">
+          <div class="emoji-tile">📈</div>
+          <h3>4. Rank Tracker &amp; 30% Refresh Protocol</h3>
+          <p>Tracks target keywords, 7-day movement, and SERP feature ownership, and generates a 5-step Top-3 Booster plan for decaying pages.</p>
+          <a class="btn btn-sm mt-8" href="/app?view=rank-tracker" style="align-self:flex-start">Open Rank Tracker →</a>
+        </div>
+
+        <div class="bento-card">
+          <div class="emoji-tile">🛡️</div>
+          <h3>5. Google Ads Runner &amp; 2× CPA Guard</h3>
+          <p>Enforces Exact &amp; Phrase match discipline, pre-attaches a Negative Keyword Shield, and auto-pauses any ad spending &gt; 2× Target CPA with 0 conversions.</p>
+          <a class="btn btn-sm mt-8" href="/app?view=campaigns" style="align-self:flex-start">Open Ads Architect →</a>
+        </div>
+
+        <div class="bento-card">
+          <div class="emoji-tile">🔗</div>
+          <h3>6. SpamBrain Shield &amp; White-Label PDF</h3>
+          <p>Calculates backlink anchor-text safety ratios, lists DR 85+ entity directories, and exports a clean printable A4 Executive Audit Report.</p>
+          <a class="btn btn-sm mt-8" href="/app?view=report" style="align-self:flex-start">Open Client Report →</a>
         </div>
       </div>
+    </div>
+  </section>
 
+  <!-- ================= PRICING ================= -->
+  <section class="section" id="pricing" style="padding-top:20px">
+    <div class="container">
+      <div class="section-head">
+        <span class="chip chip-green">TRANSPARENT SAAS PRICING</span>
+        <h2>Start free, scale as your domains grow</h2>
+        <p>Every plan includes our MarkAI-inspired workspace, zero unsolicited background pings, and full local privacy.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <div class="price-card">
+          <div>
+            <span class="chip">Starter</span>
+            <h3 class="mt-8">Free Forever</h3>
+          </div>
+          <div class="price-amt">$0 <small>/ month</small></div>
+          <ul class="feat-list">
+            <li><b>✓</b> 1 Active Website Project</li>
+            <li><b>✓</b> 5 Live Domain Crawls / month</li>
+            <li><b>✓</b> 16 AI Marketing &amp; SEO Templates</li>
+            <li><b>✓</b> Bing / Yandex IndexNow Pushes</li>
+          </ul>
+          <a class="btn btn-block mt-8" href="/app" style="margin-top:auto">Start Free in Workspace</a>
+        </div>
+
+        <div class="price-card featured">
+          <div class="between">
+            <span class="chip chip-violet">Most Popular</span>
+            <span class="tag-text green">7-Day Trial</span>
+          </div>
+          <h3>Pro Growth</h3>
+          <div class="price-amt">$29 <small>/ mo · ₹2,499/mo</small></div>
+          <ul class="feat-list">
+            <li><b>✓</b> 5 Website Domains + History</li>
+            <li><b>✓</b> Google Search Console OAuth Sync</li>
+            <li><b>✓</b> Google Indexing API v3 Batch Push</li>
+            <li><b>✓</b> 100 Tracked Keywords + 24/7 Ads ARM Script</li>
+          </ul>
+          <a class="btn btn-primary btn-block" href="/app" style="margin-top:auto">Launch Pro Workspace →</a>
+        </div>
+
+        <div class="price-card">
+          <div>
+            <span class="chip">Agencies &amp; Teams</span>
+            <h3 class="mt-8">Agency Scale</h3>
+          </div>
+          <div class="price-amt">$99 <small>/ mo · ₹7,999/mo</small></div>
+          <ul class="feat-list">
+            <li><b>✓</b> 25 Client Domains &amp; Multi-Seat Access</li>
+            <li><b>✓</b> 1,000 Daily Tracked Keywords</li>
+            <li><b>✓</b> Google Ads API Direct Stop-Loss Execution</li>
+            <li><b>✓</b> Custom-Branded White-Label PDF Reports</li>
+          </ul>
+          <a class="btn btn-block" href="/app?view=report" style="margin-top:auto">Preview White-Label Report</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container between wrap gap-12">
+      <div class="row gap-10">
+        <span class="brand-icon">Ax</span>
+        <b>Adxlead Growth OS</b>
+        <span class="small muted">© 2026 Adxlead. All rights reserved.</span>
+      </div>
+      <div class="row gap-16 small text-2">
+        <a href="/app?view=templates">Templates</a>
+        <a href="/app?view=tech-seo">Technical SEO</a>
+        <a href="/app?view=campaigns">Google Ads ARM</a>
+        <a href="/app?view=report">Client Report</a>
+      </div>
     </div>
   </footer>
 
-  <!-- ==================================================================== -->
-  <!-- JAVASCRIPT: HOME CALCULATOR CONTROLLER                               -->
-  <!-- ==================================================================== -->
   <script>
-    function calcHomeQs(qs) {
-      qs = parseInt(qs);
-      document.getElementById('hero-qs-val').innerText = `${qs} / 10`;
-
-      const baseCpc = 285.0;
-      const effectiveCpc = baseCpc * (5.0 / qs);
-      const discountPct = ((baseCpc - effectiveCpc) / baseCpc) * 100.0;
-      const savings500 = (baseCpc - effectiveCpc) * 500;
-
-      document.getElementById('home-calc-cpc').innerText = `₹${effectiveCpc.toFixed(2)}`;
-
-      const pctEl = document.getElementById('home-calc-pct');
-      if (discountPct >= 0) {
-        pctEl.innerText = `-${discountPct.toFixed(1)}% Google Discount`;
-        pctEl.className = 'text-[10px] font-bold text-sea-600';
+    document.getElementById("hero-audit-form")?.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var val = (document.getElementById("hero-domain-input")?.value || "").trim();
+      if (val) {
+        window.location.href = "/app?view=home&domain=" + encodeURIComponent(val);
       } else {
-        pctEl.innerText = `+${Math.abs(discountPct).toFixed(1)}% Auction Penalty`;
-        pctEl.className = 'text-[10px] font-bold text-red-500';
+        window.location.href = "/app?view=home";
       }
-
-      const savEl = document.getElementById('home-calc-savings');
-      savEl.innerText = savings500 >= 0 ? `+₹${savings500.toFixed(0)}` : `-₹${Math.abs(savings500).toFixed(0)}`;
-      savEl.className = savings500 >= 0 ? 'text-2xl font-black text-sea-600 font-mono' : 'text-2xl font-black text-red-500 font-mono';
-    }
+    });
   </script>
 </body>
 </html>
