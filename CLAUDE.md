@@ -192,3 +192,18 @@ Build the commercialization upgrade in **6 strictly ordered phases**:
    - NEVER hardcode local OS paths (`C:\Users\...`), service account emails, OAuth client secrets, Stripe keys, or GitHub tokens in code or commit logs. Always use environment variables (`GOOGLE_APPLICATION_CREDENTIALS`, `GSC_SERVICE_ACCOUNT_EMAIL`, `DATABASE_URL`, `SERPER_API_KEY`, `STRIPE_SECRET_KEY`, etc.).
 5. **Google Ads Safety Mandate (Human-in-the-Loop):**
    - When connecting real Google Ads API writes in Phase 2, always preview budget, match types (`[Exact]` / `"Phrase"`), negative keyword shield (`free`, `jobs`, `login`, `crack`, `salary`, `wiki`), and expected ROAS/CPA thresholds for explicit user approval before mutating live ad campaigns.
+
+---
+
+## 7. Strategic Multipliers & Expansion Channels
+
+1. **Google OAuth Production Verification & Google Ads Developer Token:**
+   - Submit the OAuth Consent Screen for production verification (`webmasters.readonly`, `indexing`, and `adwords` scopes) with a dedicated privacy policy, terms URL, and scope demonstration video so customers never see an "Unverified App" warning.
+2. **Chrome Extension Companion ("Adxlead 1-Click SEO & Ad Inspector"):**
+   - Manifest V3 extension that overlays the active tab's live Adxlead Health Score, canonical/H1 status, a 1-click **"Push URL to Googlebot & IndexNow"** button, and an instant AI Click-Magnet Title generator—serving as a zero-CAC organic acquisition channel via the Chrome Web Store.
+3. **One-Time Micro-Pack ("Pay-Per-Audit" Entry Funnel):**
+   - Offer a `$9 / ₹499` one-time **Deep Audit + 50 Instant URL Indexing Pack** alongside recurring monthly plans (`$29/mo` Pro, `$99/mo` Agency) to convert hesitant first-time buyers and upsell them into recurring subscriptions.
+4. **Telegram & WhatsApp Command Bot for Founders:**
+   - Bidirectional bot supporting `/index <url>` (instant Google Indexing API v3 + IndexNow dispatch), `/audit <domain>` (instant scorecard + PDF link), and `/status` (daily Google Ads spend, auto-paused waste queries, and Top-3 rank movers).
+5. **Certified Agency Partner Directory (`/partners`):**
+   - Public directory listing verified `$99/mo` Agency-tier subscribers so SMB founders who run a free audit can hire a certified partner to execute their SEO & Google Ads—creating strong B2B lock-in and near-zero agency churn.
