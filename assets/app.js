@@ -648,26 +648,36 @@
     `;
 
     return `
-      <section class="panel">
-        <div class="page-head" style="margin-bottom:14px">
-          <div>
-            <h1>${esc(headingTitle)}</h1>
+      <section class="panel" style="position:relative">
+        <div class="sticky-panel-top">
+          <div class="page-head" style="margin-bottom:14px">
+            <div>
+              <h1>${esc(headingTitle)}</h1>
+            </div>
+            <div class="row gap-8">
+              <button class="icon-btn ${state.templateLayout === "grid" ? "active" : ""}" id="btn-layout-grid" type="button" title="Grid View">
+                <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+              </button>
+              <button class="icon-btn ${state.templateLayout === "list" ? "active" : ""}" id="btn-layout-list" type="button" title="List View">
+                <svg class="ico" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              </button>
+            </div>
           </div>
-          <div class="row gap-8">
-            <button class="icon-btn ${state.templateLayout === "grid" ? "active" : ""}" id="btn-layout-grid" type="button" title="Grid View">
-              <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
-            </button>
-            <button class="icon-btn ${state.templateLayout === "list" ? "active" : ""}" id="btn-layout-list" type="button" title="List View">
-              <svg class="ico" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-            </button>
-          </div>
-        </div>
 
-        <div class="tabs" id="template-tabs">
-          ${tabsHtml}
+          <div class="tabs-wrap">
+            <button class="tab-slide-btn" id="btn-tabs-left" type="button" title="Slide categories left">‹</button>
+            <div class="tabs" id="template-tabs">
+              ${tabsHtml}
+            </div>
+            <button class="tab-slide-btn" id="btn-tabs-right" type="button" title="Slide categories right">›</button>
+          </div>
         </div>
 
         ${cardsHtml}
+
+        <button class="floating-next-btn" id="btn-floating-next" type="button" title="Next Category">
+          <svg class="ico" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
       </section>
     `;
   }
@@ -678,6 +688,19 @@
         state.templateCategory = btn.dataset.cat;
         renderView();
       });
+    });
+
+    const tabsEl = document.getElementById("template-tabs");
+    document.getElementById("btn-tabs-left")?.addEventListener("click", () => {
+      tabsEl?.scrollBy({ left: -220, behavior: "smooth" });
+    });
+    document.getElementById("btn-tabs-right")?.addEventListener("click", () => {
+      tabsEl?.scrollBy({ left: 220, behavior: "smooth" });
+    });
+    document.getElementById("btn-floating-next")?.addEventListener("click", () => {
+      const idx = TEMPLATE_CATEGORIES.indexOf(state.templateCategory);
+      state.templateCategory = TEMPLATE_CATEGORIES[(idx + 1) % TEMPLATE_CATEGORIES.length];
+      renderView();
     });
 
     document.getElementById("btn-layout-grid")?.addEventListener("click", () => {
@@ -1847,9 +1870,13 @@
       setTimeout(() => document.getElementById("domain-input")?.focus(), 50);
     });
 
-    // Mobile sidebar toggle
+    // Desktop & Mobile sidebar slide toggle
     document.getElementById("menu-toggle")?.addEventListener("click", () => {
-      document.getElementById("sidebar")?.classList.toggle("open");
+      if (window.innerWidth <= 860) {
+        document.getElementById("sidebar")?.classList.toggle("open");
+      } else {
+        document.body.classList.toggle("sidebar-collapsed");
+      }
     });
 
     // Global Search + Ctrl+K
