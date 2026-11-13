@@ -21,8 +21,8 @@ from urllib.parse import urlparse, parse_qs
 import urllib.request
 import urllib.error
 
-HOST = "127.0.0.1"
-PORT = 8780
+HOST = os.environ.get("HOST", "127.0.0.1")
+PORT = int(os.environ.get("PORT", "8780"))
 APP_DIR = os.path.dirname(os.path.abspath(__file__))
 SERVICE_ACCOUNT_PATH = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS", "")
 SERVICE_ACCOUNT_EMAIL = os.environ.get("GSC_SERVICE_ACCOUNT_EMAIL", "gsc-indexer@adxlead-os.iam.gserviceaccount.com")

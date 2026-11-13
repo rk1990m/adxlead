@@ -1,0 +1,18 @@
+# Core HTTP & Google API Dependencies (Current Prototype)
+requests>=2.31.0
+google-auth>=2.29.0
+google-auth-oauthlib>=1.2.0
+google-auth-httplib2>=0.2.0
+google-api-python-client>=2.126.0
+
+# Phase 1-5 Commercial SaaS Upgrade Dependencies (FastAPI + Postgres + Redis Workers)
+# Uncomment when migrating server.py to FastAPI & Celery:
+# fastapi>=0.111.0
+# uvicorn[standard]>=0.30.0
+# sqlalchemy>=2.0.30
+# psycopg2-binary>=2.9.9
+# redis>=5.0.4
+# celery>=5.4.0
+# stripe>=9.6.0
+# razorpay>=1.4.2
+# pydantic-settings>=2.2.1

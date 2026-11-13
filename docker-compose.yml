@@ -1,0 +1,17 @@
+services:
+  adxlead-web:
+    build: .
+    container_name: adxlead-web
+    restart: unless-stopped
+    ports:
+      - "8780:8780"
+    env_file:
+      - .env
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8780
+    volumes:
+      - adxlead_data:/app/data
+
+volumes:
+  adxlead_data:

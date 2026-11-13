@@ -33,6 +33,9 @@ Adxlead combines **Technical SEO, Google Search Console Intelligence, Instant In
 | `server.py` | Threaded Python HTTP server (`ThreadingHTTPServer` on `127.0.0.1:8780`) serving static pages and all REST API endpoints. |
 | `crawler.py` | Live technical auditor (`perform_deep_technical_audit`), IndexNow API dispatcher (`dispatch_real_indexnow`), and Google Indexing API v3 client (`dispatch_real_google_indexing`). |
 | `db.py` | SQLite persistence layer (`adxlead.db`) managing 3 tables: `audited_domains`, `indexing_logs`, and `rank_snapshots`. |
+| `schema.sql` | Target multi-tenant PostgreSQL schema (`users`, `workspaces`, `agency_branding`, `subscriptions`, `usage_counters`, `oauth_connections`, `audited_domains`, `indexing_logs`, `rank_snapshots`, `agency_widget_leads`). |
+| `requirements.txt` & `.env.example` | Python package manifest and sanitized environment variable template for OAuth, SERP APIs, Billing, and Alerts. |
+| `Dockerfile` & `docker-compose.yml` | Containerized deployment configuration exposing port `8780` with persistent volume storage. |
 | `.gitignore` & `README.md` | Repo hygiene keeping `*.db`, `__pycache__/`, `.env`, and credential JSON/PEM files untracked. |
 
 ### Implemented UI Modules (`dashboard.html`)
@@ -138,6 +141,26 @@ Build the commercialization upgrade in **6 strictly ordered phases**:
   - **LLM Copy Engine (Gemini / OpenAI API):** Real context-aware generation of H1/Title/Meta Click-Magnets, FAQ/Comparison tables, and Google Ads RSAs grounded in scraped page copy + user-story rules.
 - **Effect:**
   - Enables the high-margin **$99/mo+ Agency Tier** where marketing agencies use Adxlead reports as a client-acquisition lead magnet.
+
+---
+
+## 4B. 7 High-Moat Commercial Features (Competitive Advantage Over Ahrefs & Semrush)
+
+1. **Paid + Organic Cannibalization Shield (`rank_snapshots.is_cannibalized`):**
+   - Cross-references Google Search Console `Pos #1` organic queries against live Google Ads search terms.
+   - Automatically flags keywords where the brand ranks `#1` organically with zero competitor ads above fold, allowing 1-click ad pause or bid reduction to reallocate wasted ad spend toward Page-2 (`#8–#15`) striking-distance keywords.
+2. **1-Click CMS Auto-Publish Bridge (WordPress / Shopify / Webflow Webhook):**
+   - Lightweight REST/webhook plugin so clicking **"Apply AI Title & Schema Live"** in Tab 3 updates the target page's `<title>`, `<meta name="description">`, and `FAQPage` JSON-LD directly in the customer's CMS and immediately triggers Google Indexing API v3.
+3. **AI Search & GEO (Generative Engine Optimization) + `/llms.txt` Generator:**
+   - Audits brand visibility & citation share across **ChatGPT Search, Perplexity, Gemini, and Google AI Overviews**, and auto-generates a standards-compliant `/llms.txt` markdown manifest for AI crawlers.
+4. **Programmatic Internal Link Opportunity Matcher:**
+   - Crawls internal anchor graphs across all sitemap URLs and outputs exact instructions: *"Add a link from high-authority page `/blog/X` (paragraph 2) to striking-distance page `/product/Y` using anchor text `[target query]`."*
+5. **Competitor Ad & Landing Page Change Radar:**
+   - Tracks up to 5 competitor domains per workspace; alerts the user whenever a competitor alters their H1 value proposition, changes pricing tiers, launches new Google Ads RSA headlines, or publishes new sitemap URLs.
+6. **Embeddable Agency Lead-Gen Widget (`agency_widget_leads`):**
+   - Provides Agency-tier customers a 1-line `<script src="https://app.adxlead.com/widget.js" data-workspace="..."></script>` embed for their own agency website (*"Get a Free 30-Second SEO & Google Ads Waste Audit"*), capturing prospect domain + email and generating an instant branded preview link.
+7. **GA4 + Payment Gateway True Revenue Attribution Loop:**
+   - Connects GA4 e-commerce/lead events + Stripe/Razorpay webhooks to verify **True ROAS** and eliminate duplicate platform conversion counting before scaling Google Ads budgets.
 
 ---
 
