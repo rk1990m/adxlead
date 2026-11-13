@@ -1,6 +1,6 @@
 /* ==========================================================================
-   Adxlead Growth OS — MarkAI-Style Workspace Application (app.js)
-   100% Domain-Neutral · Zero Unsolicited Pings · Full API Integration
+   Adxlead Growth OS — MarkAI-Style Workspace Application (app.js v3.2)
+   100% Domain-Neutral · Zero Unsolicited Pings · In-Page 4-Part Tool Guides
    ========================================================================== */
 
 (function () {
@@ -8,29 +8,37 @@
 
   /* ---------- State ---------- */
   const state = {
-    view: "templates",           // default to MarkAI Templates showcase or switched via nav
-    collection: null,            // null | "favorites" | "popular" | "recent"
+    view: "templates",
+    collection: null,
     templateCategory: "All",
-    templateLayout: "grid",      // "grid" | "list"
+    templateLayout: "grid",
     selectedTemplateId: "serp-title-rewriter",
     searchQuery: "",
+    showGuide: localStorage.getItem("adx_show_guide") !== "0",
     lang: localStorage.getItem("adx_lang") || "en",
-    favorites: JSON.parse(localStorage.getItem("adx_favs") || '["serp-title-rewriter","google-ads-rsa","seo-blog-architect","instant-url-indexer","negative-keyword-shield","striking-distance-miner","jsonld-schema-gen","case-study-builder","competitor-gap-spy","welcome-email-seq"]'),
-    recent: JSON.parse(localStorage.getItem("adx_recent") || '["serp-title-rewriter","google-ads-rsa","instant-url-indexer","seo-blog-architect","striking-distance-miner","rank-decay-refresher","b2b-pr-pitch","negative-keyword-shield","youtube-seo-desc","listicle-outline"]'),
+    favorites: JSON.parse(
+      localStorage.getItem("adx_favs") ||
+        '["serp-title-rewriter","google-ads-rsa","seo-blog-architect","instant-url-indexer","negative-keyword-shield","striking-distance-miner","jsonld-schema-gen","case-study-builder","competitor-gap-spy","welcome-email-seq"]'
+    ),
+    recent: JSON.parse(
+      localStorage.getItem("adx_recent") ||
+        '["serp-title-rewriter","google-ads-rsa","instant-url-indexer","seo-blog-architect","striking-distance-miner","rank-decay-refresher","b2b-pr-pitch","negative-keyword-shield","youtube-seo-desc","listicle-outline"]'
+    ),
     domainData: null,
     history: [],
-    urlFilter: "unindexed",      // "unindexed" | "indexed" | "all"
+    urlFilter: "unindexed",
     selectedUrls: new Set(),
     inspectResult: null,
-    indexingLogs: [],
     armStatus: null,
     adsWizard: {
       goal: "leads",
       domain: "",
       budget: 1500,
       cpa: 450,
-      keywords: [],
-      negatives: ["free", "jobs", "career", "internship", "course", "pdf", "download", "crack", "meaning", "wikipedia", "login", "salary"]
+      negatives: [
+        "free", "jobs", "career", "internship", "course",
+        "pdf", "download", "crack", "meaning", "wikipedia", "login", "salary"
+      ]
     },
     anchorCounts: {
       branded: 14,
@@ -77,7 +85,67 @@
     }
   };
 
-  /* ---------- MarkAI Templates Catalog (16 Tools) ---------- */
+  /* ---------- 4-Part Instructions for All 8 Main Sidebar Pages ---------- */
+  const PAGE_GUIDES = {
+    "home": {
+      title: "Growth Command Center — Tool Guide",
+      what: "Real-time website crawler and executive dashboard that scans any domain's HTML, TTFB speed, XML sitemap URLs, and SEO health score (0–100).",
+      why: "Before fixing SEO or spending on Google Ads, you need a single source of truth showing how many pages are unindexed, slow, or leaking traffic.",
+      how: "1) Type any domain (e.g. yoursite.com) in the audit bar below. 2) Click 'Analyze Domain' (or load a previous scan from Recent Audits). 3) Click any quick-action button.",
+      result: "Instant 0–100 Health Score, complete XML sitemap URL inventory, unindexed page count, and Page-2 quick-win opportunities saved to local SQLite."
+    },
+    "templates": {
+      title: "AI Marketing & SEO Templates Hub — Tool Guide",
+      what: "A library of 16 ready-to-use SEO, Google Ads, Social Media, Blog, Email, and PR copy/code generators tailored to your audited domain.",
+      why: "Writing high-CTR titles, 10 Google Ads headlines, JSON-LD schema, or outreach emails from scratch takes hours. Templates automate execution in 1 click.",
+      how: "1) Filter by category tab (SEO, Advertising, Indexing, etc.) or search topbar. 2) Click any card to open its studio. 3) Enter your topic/URL and click 'Generate Output'.",
+      result: "Ready-to-paste SERP titles, Google Ads RSA packs, negative keyword shields, JSON-LD schema code, and blog outlines that boost CTR and conversions."
+    },
+    "tech-seo": {
+      title: "Technical SEO & Instant Indexing Dispatcher — Tool Guide",
+      what: "A dual engine combining a live HTTP/Googlebot URL Inspector with a batch URL dispatcher for Google Indexing API v3 and Bing IndexNow.",
+      why: "New or updated pages often sit in 'Crawled - currently not indexed' for weeks. Technical errors (wrong canonical, slow TTFB, missing viewport) silently kill rankings.",
+      how: "1) Switch between 'Unindexed', 'Indexed', or 'All' URLs. 2) Click 'Select Top 15' and press 'Push Selected to Google & IndexNow'. 3) Click 'Inspect' on any URL for live HTTP checks.",
+      result: "Unindexed URLs are pushed straight to search engine crawl queues within minutes, and technical blockers (status codes, canonicals, TTFB) are verified live."
+    },
+    "quick-wins": {
+      title: "Striking Distance Quick Wins (Pos 4–20) — Tool Guide",
+      what: "An organic CTR optimization engine that isolates keywords where your site already ranks between Position #4 and #20 (bottom of Page 1 / top of Page 2).",
+      why: "Ranking #8–#15 gets impressions but <1.5% clicks. Upgrading the Title & Meta Description is the fastest way to jump into Top 3–5 without building new backlinks.",
+      how: "1) Review each keyword card's 4-Part Diagnostic (Defect, Root Cause, Traffic Bleed, Action Plan). 2) Preview the Google SERP snippet. 3) Click 'Copy New Title' & paste into your CMS.",
+      result: "2× to 3× higher organic Click-Through Rate (CTR) and +30 to +90 extra qualified visits per month per page within 7–14 days of re-indexing."
+    },
+    "rank-tracker": {
+      title: "Organic Rank Tracker & 30% Content Decay Guard — Tool Guide",
+      what: "Keyword position monitor showing current rank, 7-day movement (+/-), monthly search volume, SERP feature ownership, and a 1-click Top-3 Booster plan.",
+      why: "Pages lose 20–40% of their traffic when competitors publish fresher 2026 guides or capture Google AI Overviews. Early detection stops ranking decay.",
+      how: "1) Scan your domain to load target keywords. 2) Check the '7d Delta' column for slipping rankings. 3) Click 'Push to Top 3' on any row to copy the 5-step 30% Content Refresh checklist.",
+      result: "Protects Page-1 positions from content decay, captures AI Overview / Featured Snippet boxes, and systematically moves #4–#10 keywords into the Top 3."
+    },
+    "campaigns": {
+      title: "Google Ads Campaign Architect & 2× CPA Stop-Loss (ARM) — Tool Guide",
+      what: "A protected Google Ads campaign builder with Exact/Phrase match discipline, pre-built Negative Keyword Shield, and an automated 2× Target CPA stop-loss script.",
+      why: "Up to 40% of Google Ads budgets are wasted on junk broad-match clicks ('free', 'jobs', 'crack') and bleeding keywords that spend money with zero conversions.",
+      how: "1) Set your Daily Budget and Target CPA. 2) Copy the Negative Keyword List into Google Ads. 3) Click 'Review & Approve Protected Campaign' or 'Get 24/7 Google Ads ARM Script'.",
+      result: "Eliminates wasted ad spend on day one, enforces a hard auto-pause whenever a keyword spends > 2× CPA with 0 conversions, and maximizes Target ROAS."
+    },
+    "off-page": {
+      title: "Off-Page Authority, Entity Schema & SpamBrain Shield — Tool Guide",
+      what: "Backlink anchor-text safety calculator and curated directory of Tier-1 high-DR (DR 86–93) B2B entity verification platforms.",
+      why: "Over-using exact-match commercial anchor text (>8%) triggers Google SpamBrain link penalties, while missing entity profiles weakens Knowledge Graph trust.",
+      how: "1) Check your Branded vs Exact-Match anchor ratio in the calculator. 2) Keep Exact Match <= 5%. 3) Open each DR 86–93 directory and claim your consistent brand profile.",
+      result: "100% penalty-safe backlink profile, verified DR 85+ foundational authority links, and strong Google Entity / Knowledge Graph recognition."
+    },
+    "report": {
+      title: "Executive White-Label Client PDF Report — Tool Guide",
+      what: "A clean, print-ready A4 executive audit summary combining SEO Health Score, URL indexing metrics, TTFB speed, and Striking-Distance quick wins.",
+      why: "Founders, clients, and stakeholders don't want raw logs—they want a clear 1-page executive scorecard showing current health and immediate growth actions.",
+      how: "1) Analyze any domain in the workspace first. 2) Open this 'Client Report' tab to preview the formatted document. 3) Click 'Print / Save as PDF' in the top right.",
+      result: "Professional white-label PDF audit report ready to email to prospective clients, attach to agency proposals, or share with your engineering team."
+    }
+  };
+
+  /* ---------- MarkAI Templates Catalog (16 Tools with 4-Part Guides) ---------- */
   const TEMPLATES = [
     {
       id: "serp-title-rewriter",
@@ -90,7 +158,13 @@
       popular: true,
       linkedView: "quick-wins",
       promptLabel: "Target URL or Primary Keyword",
-      promptPlaceholder: "e.g. Enterprise Cloud Software or /pricing"
+      promptPlaceholder: "e.g. Enterprise Cloud Software or /pricing",
+      guide: {
+        what: "Generates 3 pixel-perfect Google SERP Title (<60 chars) and Meta Description (<155 chars) variations using proven CTR hooks.",
+        why: "If your page ranks on Google but has a boring title, searchers click competitors instead. Higher CTR directly signals relevance to Google.",
+        how: "Enter your target keyword or page URL, choose a tone, click 'Generate Output', and copy your favorite Title + Meta pair into WordPress/Next.js.",
+        result: "Lifts organic Click-Through Rate (CTR) by +35% to +80% without needing any additional backlinks."
+      }
     },
     {
       id: "google-ads-rsa",
@@ -103,7 +177,13 @@
       popular: true,
       linkedView: "campaigns",
       promptLabel: "Product / Service & Offer Hook",
-      promptPlaceholder: "e.g. Dedicated React Developers — 7-Day Risk-Free Trial"
+      promptPlaceholder: "e.g. Dedicated React Developers — 7-Day Risk-Free Trial",
+      guide: {
+        what: "Creates a complete Google Ads Responsive Search Ad (RSA) pack: 10 strict <=30-char Headlines and 4 strict <=90-char Descriptions.",
+        why: "Google Ads Quality Score depends heavily on Ad Relevance and Expected CTR. High Quality Score (8–10/10) cuts your CPC by up to 50%.",
+        how: "Type your core product/service and offer hook (e.g. 7-Day Free Trial), click 'Generate Output', and paste headlines H1–H10 & D1–D4 into Google Ads.",
+        result: "'Excellent' Ad Strength rating in Google Ads, higher CTR, lower Cost-Per-Click (CPC), and stronger landing page message match."
+      }
     },
     {
       id: "youtube-seo-desc",
@@ -116,7 +196,13 @@
       popular: true,
       linkedView: null,
       promptLabel: "Video Topic & Target Keyword",
-      promptPlaceholder: "e.g. How to Cut Google Ads Wasted Spend by 40%"
+      promptPlaceholder: "e.g. How to Cut Google Ads Wasted Spend by 40%",
+      guide: {
+        what: "Builds a keyword-rich YouTube description with above-the-fold CTA, chapter timestamps, and semantic hashtags.",
+        why: "YouTube and Google Video carousels rely on the first 200 characters and chapter timestamps to rank videos for commercial how-to queries.",
+        how: "Enter your video title or main keyword, click 'Generate Output', and paste into YouTube Studio before publishing.",
+        result: "Higher rankings in YouTube search, Google Video key-moments snippets, and more clicks to your website link."
+      }
     },
     {
       id: "seo-blog-architect",
@@ -129,7 +215,13 @@
       popular: true,
       linkedView: null,
       promptLabel: "Primary Blog Keyword",
-      promptPlaceholder: "e.g. Technical SEO Audit Checklist for SaaS"
+      promptPlaceholder: "e.g. Technical SEO Audit Checklist for SaaS",
+      guide: {
+        what: "Generates a comprehensive SEO article structure with H1, 45-word AI Overview answer block, H2/H3 semantic subheadings, and FAQ section.",
+        why: "Unstructured blog posts fail to rank against authoritative guides. Google rewards clear entity coverage and direct answer paragraphs.",
+        how: "Enter your primary target keyword, select your desired tone, and click 'Generate Output' to get the full structured draft.",
+        result: "Search-optimized long-form article engineered to rank on Page 1 and win Google AI Overview citations."
+      }
     },
     {
       id: "listicle-outline",
@@ -142,7 +234,13 @@
       popular: true,
       linkedView: null,
       promptLabel: "Listicle Topic",
-      promptPlaceholder: "e.g. 10 Best B2B Lead Generation Strategies in 2026"
+      promptPlaceholder: "e.g. 10 Best B2B Lead Generation Strategies in 2026",
+      guide: {
+        what: "Produces a numbered comparison listicle blueprint ('Top 10 / Best X for Y') with evaluation criteria and summary table.",
+        why: "Numbered listicles capture Featured Snippets and LLM/ChatGPT citations faster than any other content format.",
+        how: "Enter your listicle topic (e.g. '7 Best Cloud Hosting Providers'), generate the framework, and publish with internal links.",
+        result: "High-engagement comparison post that captures bottom-of-funnel buyer searches."
+      }
     },
     {
       id: "case-study-builder",
@@ -155,7 +253,13 @@
       popular: true,
       linkedView: null,
       promptLabel: "Client Industry & Key Result Achieved",
-      promptPlaceholder: "e.g. FinTech SaaS — +210% Organic Signups in 90 Days"
+      promptPlaceholder: "e.g. FinTech SaaS — +210% Organic Signups in 90 Days",
+      guide: {
+        what: "Creates a B2B conversion case study structured into Executive Summary, Client Challenge, Technical Solution, and Verified ROI Metrics.",
+        why: "B2B buyers and enterprise leads rarely convert without proof. Concrete before/after numbers remove buyer hesitation.",
+        how: "Enter the client's industry and main metric achieved, click 'Generate Output', and publish on your /case-studies page or sales deck.",
+        result: "Persuasive social-proof asset that increases landing page and sales call close rates."
+      }
     },
     {
       id: "product-review-post",
@@ -168,7 +272,13 @@
       popular: false,
       linkedView: null,
       promptLabel: "Your Brand vs Competitor Name",
-      promptPlaceholder: "e.g. Our Platform vs Legacy Agency Retainers"
+      promptPlaceholder: "e.g. Our Platform vs Legacy Agency Retainers",
+      guide: {
+        what: "Builds a high-converting 'Brand A vs Brand B' comparison page with feature matrix, pricing breakdown, and migration CTA.",
+        why: "'Alternative to X' and 'X vs Y' keywords have the highest buyer intent and lowest Cost-Per-Acquisition in B2B SaaS.",
+        how: "Enter your brand vs the competitor category/name, generate the comparison copy, and publish on a dedicated comparison URL.",
+        result: "Captures high-intent buyers actively looking to switch from competitors."
+      }
     },
     {
       id: "welcome-email-seq",
@@ -181,7 +291,13 @@
       popular: true,
       linkedView: null,
       promptLabel: "Audience & Lead Magnet / Offer",
-      promptPlaceholder: "e.g. Free Technical SEO Audit Report Signups"
+      promptPlaceholder: "e.g. Free Technical SEO Audit Report Signups",
+      guide: {
+        what: "Writes a 3-email sequence (Day 0 Instant Value, Day 2 Case Study Proof, Day 5 Low-Friction CTA) for new leads.",
+        why: "Most leads don't buy on their first visit. A structured 5-day email follow-up doubles demo bookings from existing traffic.",
+        how: "Enter what the user signed up for, click 'Generate Output', and load the 3 emails into your CRM or email sender.",
+        result: "Higher email open/reply rates and automated lead-to-demo conversion."
+      }
     },
     {
       id: "instant-url-indexer",
@@ -194,7 +310,13 @@
       popular: true,
       linkedView: "tech-seo",
       promptLabel: "URL to Inspect & Force-Index",
-      promptPlaceholder: "https://example.com/new-landing-page"
+      promptPlaceholder: "https://example.com/new-landing-page",
+      guide: {
+        what: "Prepares and dispatches priority URLs to Google Indexing API v3 (URL_UPDATED) and Bing/Yandex IndexNow.",
+        why: "Waiting weeks for Googlebot to naturally discover new landing pages delays your SEO ROI.",
+        how: "Enter a URL here or click 'Open Full Indexing Workspace' to select up to 15 unindexed sitemap URLs and push them in 1 click.",
+        result: "Triggers rapid search engine crawl & indexing within 24–48 hours."
+      }
     },
     {
       id: "striking-distance-miner",
@@ -207,7 +329,13 @@
       popular: true,
       linkedView: "quick-wins",
       promptLabel: "Page URL & Ranking Keyword",
-      promptPlaceholder: "e.g. /services — custom software development"
+      promptPlaceholder: "e.g. /services — custom software development",
+      guide: {
+        what: "Analyzes pages stuck at Positions #4–#20 and generates a 4-part diagnostic + title/meta upgrade to push them into the Top 3.",
+        why: "Moving a keyword from #11 (Page 2) to #3 (Page 1) can multiply traffic 10× with zero new backlinks.",
+        how: "Enter your page & keyword or click 'Open Full SEO Workspace' to view all detected striking-distance opportunities for your domain.",
+        result: "Immediate organic traffic lift from pages that already have impression volume."
+      }
     },
     {
       id: "negative-keyword-shield",
@@ -220,7 +348,13 @@
       popular: true,
       linkedView: "campaigns",
       promptLabel: "Campaign Niche / Industry",
-      promptPlaceholder: "e.g. B2B SaaS / Legal / Healthcare / E-Commerce"
+      promptPlaceholder: "e.g. B2B SaaS / Legal / Healthcare / E-Commerce",
+      guide: {
+        what: "Generates a pre-vetted list of negative keywords grouped by Freebie, Job-Seeker, Educational, and Support intent.",
+        why: "Without negative keywords, Google Ads matches your ads to people searching for 'free download', 'jobs', 'salary', or 'wikipedia'.",
+        how: "Enter your industry, click 'Generate Output', copy the list, and paste into Google Ads -> Keywords -> Negative Keywords.",
+        result: "Saves 25%–40% of your daily ad budget from non-converting junk clicks immediately."
+      }
     },
     {
       id: "jsonld-schema-gen",
@@ -233,7 +367,13 @@
       popular: false,
       linkedView: "off-page",
       promptLabel: "Brand Name & Official Website",
-      promptPlaceholder: "e.g. Acme Corp — https://acme.com"
+      promptPlaceholder: "e.g. Acme Corp — https://acme.com",
+      guide: {
+        what: "Builds valid Schema.org Organization + ContactPoint + sameAs JSON-LD script ready for your site's <head>.",
+        why: "Structured data explicitly connects your website to your LinkedIn, Crunchbase, and G2 profiles in Google's Knowledge Graph.",
+        how: "Enter your brand name, click 'Generate Output', copy the JSON-LD block, and paste it inside a <script type=\"application/ld+json\"> tag.",
+        result: "Stronger brand entity authority, rich SERP snippets, and AI search verification."
+      }
     },
     {
       id: "rank-decay-refresher",
@@ -246,7 +386,13 @@
       popular: false,
       linkedView: "rank-tracker",
       promptLabel: "Decaying Page Topic",
-      promptPlaceholder: "e.g. Complete Guide to Cloud MigrationCosts"
+      promptPlaceholder: "e.g. Complete Guide to Cloud Migration Costs",
+      guide: {
+        what: "Generates a 30% content overhaul blueprint (fresh 2026 intro, AI Overview definition block, comparison table, and 4 FAQs).",
+        why: "Google demotes older articles when user engagement drops. Updating 30% of the content triggers a freshness boost.",
+        how: "Enter the topic of your slipping page, generate the refresh blocks, update your post, and re-submit via Instant Indexing.",
+        result: "Recovers lost Page-1 rankings and captures new long-tail queries."
+      }
     },
     {
       id: "b2b-pr-pitch",
@@ -259,7 +405,13 @@
       popular: false,
       linkedView: "off-page",
       promptLabel: "Research Hook or Industry Trend",
-      promptPlaceholder: "e.g. 2026 Benchmark: Why 68% of Paid Search Budgets Leak"
+      promptPlaceholder: "e.g. 2026 Benchmark: Why 68% of Paid Search Budgets Leak",
+      guide: {
+        what: "Crafts a concise, data-driven Digital PR / HARO pitch email with 3 quotable statistics and a natural attribution link.",
+        why: "Generic 'please link to my blog' emails get deleted. Journalists and editors link to original benchmarks and expert commentary.",
+        how: "Enter your industry insight or benchmark stat, click 'Generate Output', and send to relevant industry editors.",
+        result: "Earns contextual DR 70+ authority backlinks that safely raise Domain Rating."
+      }
     },
     {
       id: "social-caption-pro",
@@ -272,7 +424,13 @@
       popular: false,
       linkedView: null,
       promptLabel: "Post Topic or Announcement",
-      promptPlaceholder: "e.g. Launching our automated SEO & Ads audit workspace"
+      promptPlaceholder: "e.g. Launching our automated SEO & Ads audit workspace",
+      guide: {
+        what: "Writes a high-engagement social post with a 1-line contrarian hook, bulleted takeaways, and conversation starter CTA.",
+        why: "Social algorithms reward dwell time and comments. Strong opening hooks stop users from scrolling past your post.",
+        how: "Enter your announcement or lesson learned, choose a tone, and copy the caption to LinkedIn or Instagram.",
+        result: "Higher post impressions, profile visits, and inbound DMs."
+      }
     },
     {
       id: "competitor-gap-spy",
@@ -285,7 +443,13 @@
       popular: false,
       linkedView: "campaigns",
       promptLabel: "Competitor Domain",
-      promptPlaceholder: "e.g. competitor.com"
+      promptPlaceholder: "e.g. competitor.com",
+      guide: {
+        what: "Extracts high-intent commercial keywords and counter-positioning hooks to intercept competitor search traffic.",
+        why: "Bidding on exact problem-aware and competitor-comparison terms lets you win buyers who are already ready to purchase.",
+        how: "Enter a competitor domain, click 'Generate Output' (or open the Campaigns tab to run live keyword extraction).",
+        result: "Ready-to-bid Exact & Phrase match keyword list with differentiation hooks."
+      }
     }
   ];
 
@@ -367,6 +531,54 @@
     renderNav();
   }
 
+  /* ---------- Reusable 4-Part In-Page Tool Instructions Component ---------- */
+  function renderToolGuideBanner(guideObj, customHeading) {
+    if (!guideObj) return "";
+    const heading = customHeading || guideObj.title || "Tool Instructions & Guide";
+    return `
+      <div class="tool-guide no-print">
+        <div class="tool-guide-head">
+          <h4>
+            <span>💡 ${esc(heading)}</span>
+          </h4>
+          <button class="btn btn-sm" data-toggle-guide="1" type="button">
+            ${state.showGuide ? "Hide Instructions ▲" : "Show Instructions (What · Why · How · Results) ▼"}
+          </button>
+        </div>
+        ${state.showGuide ? `
+          <div class="tool-guide-grid">
+            <div class="tool-guide-card">
+              <div class="tg-step s1">📘 1. What is this tool?</div>
+              <p>${esc(guideObj.what)}</p>
+            </div>
+            <div class="tool-guide-card">
+              <div class="tg-step s2">🎯 2. Why is it needed?</div>
+              <p>${esc(guideObj.why)}</p>
+            </div>
+            <div class="tool-guide-card">
+              <div class="tg-step s3">🛠️ 3. How to use?</div>
+              <p>${esc(guideObj.how)}</p>
+            </div>
+            <div class="tool-guide-card">
+              <div class="tg-step s4">📈 4. Results of this</div>
+              <p>${esc(guideObj.result)}</p>
+            </div>
+          </div>
+        ` : ""}
+      </div>
+    `;
+  }
+
+  function bindGuideToggleEvents() {
+    document.querySelectorAll("[data-toggle-guide]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        state.showGuide = !state.showGuide;
+        localStorage.setItem("adx_show_guide", state.showGuide ? "1" : "0");
+        renderView();
+      });
+    });
+  }
+
   /* ---------- API Calls (Zero auto-crawl on load) ---------- */
   async function loadHistoryList() {
     try {
@@ -435,7 +647,7 @@
       } else {
         toast(data.error || "Could not load domain", true);
       }
-    } catch (e) {
+    } catch (_) {
       toast("Error loading saved domain", true);
     }
   }
@@ -506,7 +718,6 @@
       });
     });
 
-    // Update static i18n elements
     document.querySelectorAll("[data-i18n]").forEach(el => {
       el.textContent = t(el.dataset.i18n);
     });
@@ -514,7 +725,7 @@
     if (searchInput) searchInput.placeholder = t("searchPlaceholder");
   }
 
-  /* ---------- Top Domain Bar Component (Shared across SEO/Ads views) ---------- */
+  /* ---------- Top Domain Bar Component ---------- */
   function renderDomainAuditBar() {
     const d = state.domainData;
     const historyOpts = state.history.map(h =>
@@ -559,7 +770,7 @@
   }
 
   /* ==========================================================================
-     VIEW 1: TEMPLATES (Exact MarkAI Reference Layout + Interactive Studio)
+     VIEW 1: TEMPLATES (MarkAI Reference Layout + Active Tool Instructions)
      ========================================================================== */
   function renderTemplatesView() {
     let items = TEMPLATES.slice();
@@ -592,6 +803,8 @@
       : state.collection === "recent"
       ? t("colRec")
       : "Templates";
+
+    const selectedTpl = TEMPLATES.find(x => x.id === state.selectedTemplateId) || TEMPLATES[0];
 
     const tabsHtml = TEMPLATE_CATEGORIES.map(cat => `
       <button class="tab ${state.templateCategory === cat ? "active" : ""}" data-cat="${esc(cat)}" type="button">${esc(cat)}</button>
@@ -673,6 +886,13 @@
           </div>
         </div>
 
+        <div class="mt-16">
+          ${renderToolGuideBanner(
+            selectedTpl ? selectedTpl.guide : PAGE_GUIDES["templates"],
+            selectedTpl ? `${selectedTpl.emoji} ${selectedTpl.title} — How This Tool Works` : PAGE_GUIDES["templates"].title
+          )}
+        </div>
+
         ${cardsHtml}
 
         <button class="floating-next-btn" id="btn-floating-next" type="button" title="Next Category">
@@ -683,6 +903,8 @@
   }
 
   function bindTemplatesEvents() {
+    bindGuideToggleEvents();
+
     document.querySelectorAll("#template-tabs [data-cat]").forEach(btn => {
       btn.addEventListener("click", () => {
         state.templateCategory = btn.dataset.cat;
@@ -736,7 +958,7 @@
     });
   }
 
-  /* ---------- Interactive Template Studio Modal ---------- */
+  /* ---------- Interactive Template Studio Modal (With In-Modal 4-Part Guide) ---------- */
   function generateTemplateOutput(tpl, inputVal, tone) {
     const dom = state.domainData ? state.domainData.domain : "yourbrand.com";
     const topic = (inputVal || "").trim() || (state.domainData ? state.domainData.title || dom : "B2B Growth & Marketing Automation");
@@ -872,6 +1094,7 @@
 
     const defaultInput = state.domainData ? `${state.domainData.domain} — ${state.domainData.title || ""}` : "";
     const initialOutput = generateTemplateOutput(tpl, defaultInput, "Professional & Data-Driven");
+    const g = tpl.guide || PAGE_GUIDES["templates"];
 
     modalRoot.innerHTML = `
       <div class="modal-backdrop" id="tpl-backdrop">
@@ -892,6 +1115,28 @@
           </div>
 
           <div class="modal-body">
+            <!-- 4-Part Instructions right inside the Template Tool Modal -->
+            <div class="tool-guide" style="margin-bottom:16px">
+              <div class="tool-guide-grid" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+                <div class="tool-guide-card">
+                  <div class="tg-step s1">📘 1. What is this tool?</div>
+                  <p>${esc(g.what)}</p>
+                </div>
+                <div class="tool-guide-card">
+                  <div class="tg-step s2">🎯 2. Why is it needed?</div>
+                  <p>${esc(g.why)}</p>
+                </div>
+                <div class="tool-guide-card">
+                  <div class="tg-step s3">🛠️ 3. How to use?</div>
+                  <p>${esc(g.how)}</p>
+                </div>
+                <div class="tool-guide-card">
+                  <div class="tg-step s4">📈 4. Results of this</div>
+                  <p>${esc(g.result)}</p>
+                </div>
+              </div>
+            </div>
+
             <div class="two-col" style="grid-template-columns:1fr 1.35fr;gap:20px">
               <div class="stack gap-12">
                 <div>
@@ -922,7 +1167,7 @@
                   <span class="label" style="margin:0">Generated Output</span>
                   <button class="btn btn-sm" id="btn-tpl-copy" type="button">Copy Result</button>
                 </div>
-                <textarea class="textarea" id="tpl-output" style="min-height:290px">${esc(initialOutput)}</textarea>
+                <textarea class="textarea" id="tpl-output" style="min-height:240px">${esc(initialOutput)}</textarea>
               </div>
             </div>
           </div>
@@ -964,7 +1209,7 @@
   }
 
   /* ==========================================================================
-     VIEW 2: HOME (Command Center, KPI Stat Cards, Recent Audits, Quick Launch)
+     VIEW 2: HOME (Command Center)
      ========================================================================== */
   function renderHomeView() {
     const d = state.domainData;
@@ -982,6 +1227,7 @@
           ${d ? `<button class="btn" id="btn-home-report" type="button">Export Client PDF Report</button>` : ""}
         </div>
 
+        ${renderToolGuideBanner(PAGE_GUIDES["home"])}
         ${renderDomainAuditBar()}
 
         <div class="stats">
@@ -1075,6 +1321,7 @@
   }
 
   function bindHomeEvents() {
+    bindGuideToggleEvents();
     bindDomainBarEvents();
     document.getElementById("btn-home-report")?.addEventListener("click", () => {
       state.view = "report";
@@ -1113,6 +1360,7 @@
           </div>
         </div>
 
+        ${renderToolGuideBanner(PAGE_GUIDES["tech-seo"])}
         ${renderDomainAuditBar()}
 
         ${!d ? `
@@ -1123,7 +1371,6 @@
           </div>
         ` : `
           <div class="two-col">
-            <!-- URL Indexing Queue -->
             <div class="card">
               <div class="card-head">
                 <div>
@@ -1182,7 +1429,6 @@
               </div>
             </div>
 
-            <!-- Live URL Inspector + Technical Audit -->
             <div class="stack gap-16">
               <div class="card card-pad">
                 <h3>Live HTTP & Googlebot URL Inspector</h3>
@@ -1244,6 +1490,7 @@
   }
 
   function bindTechSeoEvents() {
+    bindGuideToggleEvents();
     bindDomainBarEvents();
 
     document.querySelectorAll("[data-ufilter]").forEach(btn => {
@@ -1344,7 +1591,7 @@
   }
 
   /* ==========================================================================
-     VIEW 4: STRIKING DISTANCE (Page 2 Quick Wins + SERP Preview + 4-Part Diag)
+     VIEW 4: STRIKING DISTANCE
      ========================================================================== */
   function renderQuickWinsView() {
     const d = state.domainData;
@@ -1359,6 +1606,7 @@
           </div>
         </div>
 
+        ${renderToolGuideBanner(PAGE_GUIDES["quick-wins"])}
         ${renderDomainAuditBar()}
 
         ${!d ? `
@@ -1369,7 +1617,7 @@
           </div>
         ` : `
           <div class="qw-grid">
-            ${wins.map((w, idx) => {
+            ${wins.map(w => {
               const title = w.recommended_title || `${w.query} — Verified Solutions | ${d.domain}`;
               const desc = w.recommended_meta || w.fix || `Explore ${w.query} on ${d.domain}. Compare features, transparent pricing, and real customer benchmarks.`;
               return `
@@ -1430,6 +1678,7 @@
   }
 
   function bindQuickWinsEvents() {
+    bindGuideToggleEvents();
     bindDomainBarEvents();
     document.querySelectorAll("[data-copy-title]").forEach(btn => {
       btn.addEventListener("click", () => copyText(btn.dataset.copyTitle, "SERP Title copied!"));
@@ -1440,7 +1689,7 @@
   }
 
   /* ==========================================================================
-     VIEW 5: RANK TRACKER & 30% CONTENT REFRESH
+     VIEW 5: RANK TRACKER
      ========================================================================== */
   function renderRankTrackerView() {
     const d = state.domainData;
@@ -1455,6 +1704,7 @@
           </div>
         </div>
 
+        ${renderToolGuideBanner(PAGE_GUIDES["rank-tracker"])}
         ${renderDomainAuditBar()}
 
         ${!d ? `
@@ -1507,6 +1757,7 @@
   }
 
   function bindRankTrackerEvents() {
+    bindGuideToggleEvents();
     bindDomainBarEvents();
     document.querySelectorAll("[data-boost-kw]").forEach(btn => {
       btn.addEventListener("click", () => {
@@ -1548,10 +1799,10 @@
           </div>
         </div>
 
+        ${renderToolGuideBanner(PAGE_GUIDES["campaigns"])}
         ${renderDomainAuditBar()}
 
         <div class="two-col">
-          <!-- Campaign Builder -->
           <div class="card card-pad stack gap-16">
             <h3>1. Campaign Parameters & ROAS Guardrails</h3>
             <div class="diag">
@@ -1589,7 +1840,6 @@
             </div>
           </div>
 
-          <!-- ARM Live Telemetry -->
           <div class="card card-pad stack gap-12">
             <div class="between">
               <h3>2. Autonomous Stop-Loss Watchdog (ARM)</h3>
@@ -1611,6 +1861,7 @@
   }
 
   function bindCampaignsEvents() {
+    bindGuideToggleEvents();
     bindDomainBarEvents();
 
     document.getElementById("btn-copy-negs")?.addEventListener("click", () => {
@@ -1653,7 +1904,7 @@
         const out = document.getElementById("ads-launch-output");
         if (out) out.textContent = JSON.stringify(data, null, 2);
         toast(`Extracted high-intent keywords for ${domain}`);
-      } catch (e) {
+      } catch (_) {
         toast("Competitor extraction failed", true);
       }
     });
@@ -1680,7 +1931,6 @@
     const total = Math.max(1, a.branded + a.naked + a.generic + a.partial + a.exact);
     const exactPct = Math.round((a.exact / total) * 100);
     const safe = exactPct <= 8;
-    const dom = state.domainData ? state.domainData.domain : "yourbrand.com";
 
     const directories = [
       { name: "Clutch.co", dr: 91, type: "B2B Verified Reviews", url: "https://clutch.co" },
@@ -1699,6 +1949,8 @@
             <p>Maintain natural backlink anchor ratios, claim DR 85+ entity profiles, and deploy Knowledge Graph sameAs JSON-LD.</p>
           </div>
         </div>
+
+        ${renderToolGuideBanner(PAGE_GUIDES["off-page"])}
 
         <div class="two-col">
           <div class="card card-pad stack gap-12">
@@ -1753,7 +2005,7 @@
   }
 
   /* ==========================================================================
-     VIEW 8: WHITE-LABEL CLIENT REPORT (Printable A4 Executive Report)
+     VIEW 8: WHITE-LABEL CLIENT REPORT
      ========================================================================== */
   function renderReportView() {
     const d = state.domainData;
@@ -1768,6 +2020,8 @@
           </div>
           <button class="btn btn-primary" id="btn-print-report" type="button">🖨️ Print / Save as PDF</button>
         </div>
+
+        ${renderToolGuideBanner(PAGE_GUIDES["report"])}
 
         <div class="report">
           <div class="report-head">
@@ -1846,9 +2100,11 @@
         break;
       case "off-page":
         root.innerHTML = renderOffPageView();
+        bindGuideToggleEvents();
         break;
       case "report":
         root.innerHTML = renderReportView();
+        bindGuideToggleEvents();
         document.getElementById("btn-print-report")?.addEventListener("click", () => window.print());
         break;
       case "templates":
@@ -1861,7 +2117,6 @@
 
   /* ---------- Global Shell Controls ---------- */
   function initShellEvents() {
-    // New Audit button -> switch to Home and focus domain input
     document.getElementById("btn-new-audit")?.addEventListener("click", () => {
       state.view = "home";
       state.collection = null;
@@ -1870,7 +2125,6 @@
       setTimeout(() => document.getElementById("domain-input")?.focus(), 50);
     });
 
-    // Desktop & Mobile sidebar slide toggle
     document.getElementById("menu-toggle")?.addEventListener("click", () => {
       if (window.innerWidth <= 860) {
         document.getElementById("sidebar")?.classList.toggle("open");
@@ -1879,7 +2133,6 @@
       }
     });
 
-    // Global Search + Ctrl+K
     const searchInput = document.getElementById("global-search");
     if (searchInput) {
       searchInput.addEventListener("input", () => {
@@ -1899,7 +2152,6 @@
       }
     });
 
-    // Language selector
     const langSel = document.getElementById("lang-select");
     if (langSel) {
       langSel.value = state.lang;
@@ -1911,14 +2163,13 @@
       });
     }
 
-    // What's New popover
     const wnBtn = document.getElementById("btn-whats-new");
     const wnPop = document.getElementById("pop-whats-new");
     if (wnBtn && wnPop) {
       wnPop.innerHTML = `
         <div class="popover-item">
-          <b>✨ MarkAI Clean SaaS Workspace v3.0</b>
-          <span>Redesigned with 16 interactive AI SEO & Google Ads templates, Favorite/Popular/Recent collections, and instant domain auditing.</span>
+          <b>✨ In-Page Tool Guides (What · Why · How · Results)</b>
+          <span>Every workspace view and all 16 templates now include a built-in 4-part guide right on the page.</span>
         </div>
         <div class="popover-item">
           <b>🛡️ Zero Background Pings</b>
@@ -1951,11 +2202,9 @@
     renderNav();
     renderView();
 
-    // Load local SQLite history & ARM state (never pings external domains)
     loadHistoryList();
     loadArmStatus();
 
-    // Only if user explicitly submitted ?domain= from the homepage form:
     if (requestedDomain) {
       state.view = requestedView || "home";
       renderNav();
