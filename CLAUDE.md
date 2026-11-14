@@ -28,8 +28,10 @@ Adxlead combines **Technical SEO, Google Search Console Intelligence, Instant In
 ### File & Module Inventory
 | File | Role & Current Implementation |
 |---|---|
-| `index.html` | SaaS marketing homepage (`GET /`) with overview and entry points into the app. |
-| `dashboard.html` | Main single-page Growth OS web app (`GET /app` or `GET /dashboard`). Built with Tailwind CSS + English Green / Sea Green neomorphic design system (`#0B3821`, `#0D3B2E`, `#2E8B57`, `#A3D4C0`), FontAwesome icons, and responsive grids. |
+| `index.html` | MarkAI-style clean SaaS marketing homepage (`GET /`) with live domain audit launcher, interactive workspace preview frame, 6-engine Bento grid, and 3-tier pricing (`Free $0`, `Pro Growth $29/mo | ₹2,499/mo`, `Agency Scale $99/mo | ₹7,999/mo`). |
+| `dashboard.html` | Main MarkAI-style Growth OS web app shell (`GET /app` or `GET /dashboard`) with collapsible left sidebar (`248px`), global `Ctrl+K` search topbar, English/Hindi switcher, and dynamic view container. |
+| `assets/base.css` & `assets/app.css` | Complete MarkAI clean SaaS design system (`#F6F7F9` background, `#FFFFFF` cards, `#0E1530` deep navy primary buttons, `#F1F1FE` lavender selection, always-visible custom scrollbars, sticky category tabs with `‹`/`›` slide controls, and 4-card tool guide banners). |
+| `assets/app.js` | Full client application implementing 8 primary views (`Home`, `Templates`, `Technical SEO`, `Striking Distance`, `Rank Tracker`, `Campaigns`, `Off-Page & PR`, `Client Report`), 3 collections (`Favorite Tools`, `Popular Tools`, `Recent Tools`), 16 interactive AI/SEO templates, and in-page **4-Part Tool Instructions (`What is this tool?` · `Why is it needed?` · `How to use?` · `Results of this`)** across every page and template. |
 | `server.py` | Threaded Python HTTP server (`ThreadingHTTPServer` on `127.0.0.1:8780`) serving static pages and all REST API endpoints. |
 | `crawler.py` | Live technical auditor (`perform_deep_technical_audit`), IndexNow API dispatcher (`dispatch_real_indexnow`), and Google Indexing API v3 client (`dispatch_real_google_indexing`). |
 | `db.py` | SQLite persistence layer (`adxlead.db`) managing 3 tables: `audited_domains`, `indexing_logs`, and `rank_snapshots`. |
